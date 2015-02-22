@@ -1,0 +1,12 @@
+defaults: &defaults
+  room:           <%= ENV['HIPCHAT_ROOM']        || 'my_room' %>
+  token:          <%= ENV['HIPCHAT_TOKEN']       || 'my_tpken' %>
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+
+production:
+  <<: *defaults
