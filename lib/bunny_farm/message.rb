@@ -42,7 +42,7 @@ module BunnyFarm
       end
 
       begin
-        @elements = JSON.parse(a_json_payload)
+        @elements = MessageElements.new( JSON.parse(payload) )
       rescue Exception => e
         return(failure e)
       end
@@ -158,6 +158,12 @@ module BunnyFarm
         @@allowed_actions = args.flatten.map do |s|
           s.is_a?(Symbol) ? s : s.to_sym
         end
+      end
+      def item_names
+        @@item_names
+      end
+      def allowed_actions
+        @@allowed_actions
       end
     end # class << self
   end # class Message

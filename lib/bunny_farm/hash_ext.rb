@@ -14,7 +14,7 @@ class Hash
         the_entry_name = s.keys.first
         the_component_names = s[the_entry_name]
         if self[the_entry_name].is_a? Hash
-          temp_hash[the_entry_name] = self[the_entry_name].extract(the_component_names)
+          temp_hash[the_entry_name] = self[the_entry_name].tdv_extract(the_component_names)
         elsif self[the_entry_name].is_a? Array
           temp_hash[the_entry_name] = []
           self[the_entry_name].each do |a|
