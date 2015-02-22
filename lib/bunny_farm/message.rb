@@ -1,13 +1,29 @@
 require 'json'
+
 require_relative 'message_elements'
 
 module BunnyFarm
   class Message
-    def initialize(a_json_payload, delivery_info=nil)
+
+    # contains the valid fields
+    attr_accessor :items
+
+    # contains all the junk sent in the JSON payload
+    attr_accessor :elements
+
+    # The JSON payload that was delivered
+    attr_accessor :payload
+
+    # The AMQP delivery information
+    attr_accessor :delivery_info
+
+    def initialize(a_json_payload='{"no":"payload provided"}', delivery_info='unknown')
       success! # ass_u_me its gonna work
 
       @payload        = a_json_payload
       @delivery_info  = delivery_info
+
+      return(failure 'Was not received from an AMQP broker') if delivery_info.nil?
 
       temp = delivery_info.routing_key.split('.')
       job_name = temp.first
@@ -33,14 +49,13 @@ module BunnyFarm
 
       begin
         @items    = @elements.tdv_extract(@@item_names)
-      rescue Exception =< e
-        retrun(failure e)
+      rescue Exception => e
+        return(failure e)
       end
 
-      self.call(action_request) if successful?
+      self.send(action_request) if successful?
     end # def initialize(a_json_payload, delivery_info=nil)
 
-    private
 
     def publish(action='')
       return(failure 'unspecified action') if action.empty?
@@ -64,7 +79,8 @@ module BunnyFarm
 
     def error(a_string)
       @errors = [] unless @errors.is_a? Array
-      @errors << "#{elf.class} #{a_string}"
+      @errors << "#{self.class} #{a_string}"
+      STDERR.puts @errors.last
     end
 
     def errors
@@ -113,7 +129,7 @@ module BunnyFarm
 
     def failure(a_string='Unknown failure')
       error a_string
-      auccess(false)
+      success(false)
     end
 
     def success?()
@@ -135,7 +151,7 @@ module BunnyFarm
 
     # A little DSL candy
     class << self
-      def items(*args)
+      def fields(*args)
         @@item_names = args.flatten
       end
       def actions(*args)
