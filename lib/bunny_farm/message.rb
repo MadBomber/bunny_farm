@@ -58,8 +58,16 @@ module BunnyFarm
 
 
     def publish(action='')
+      return(failure "Really? Action: '#{action.inspect}'") unless action.respond_to?(:to_s)
       return(failure 'unspecified action') if action.empty?
-      return(failure "Really? Action: '#{action.inspect}'") unless action.responsds_to?(:to_s)
+
+      action = action.to_s unless action.is_a?(String)
+
+      # NOTE: that is about all the error checking we can do in a generic
+      #       sort of way.  Had thought about checking against #allowed_actions
+      #       but realized that there may be a different job manager coordinating
+      #       different actions against the same class name.
+
       @payload = to_json
 
       begin
@@ -80,11 +88,11 @@ module BunnyFarm
     def error(a_string)
       @errors = [] unless @errors.is_a? Array
       @errors << "#{self.class} #{a_string}"
-      STDERR.puts @errors.last
+      STDERR.puts "ERROR: " + @errors.last
     end
 
     def errors
-      #errors
+      @errors
     end
 
     def to_json
@@ -108,9 +116,8 @@ module BunnyFarm
       @items[a_key.to_sym] = a_value
     end
 
-    def <<(a_hash, a_value=nil)
-      a_hash = Hash.new( {a_hash.to_sym => a_value} ) unless Hash == a_hash.class
-      @items.merge(a_hash.symbolize_keys)
+    def <<(a_hash)
+      @items.merge!(a_hash.symbolize_keys)
     end
 
     def each(&block)

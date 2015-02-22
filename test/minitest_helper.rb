@@ -11,3 +11,13 @@ class MyMessageClass < BunnyFarm::Message
     success!
   end
 end
+
+AMQP_CONFIG = Hashie::Mash.new
+
+class Stub
+  def publish(*args)
+    true
+  end
+end
+
+AMQP_CONFIG.exchange = Stub.new

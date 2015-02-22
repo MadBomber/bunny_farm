@@ -10,7 +10,8 @@ class TestBunnyFarm < Minitest::Test
     }
     delivery_stub = Hashie::Mash.new
     delivery_stub.routing_key = 'MyMessageClass.test'
-    @mmc = MyMessageClass.new(@test_hash.to_json, delivery_stub)
+    @test_payload = @test_hash.to_json
+    @mmc = MyMessageClass.new(@test_payload, delivery_stub)
   end
 
   def test_that_it_has_a_version_number
@@ -65,6 +66,79 @@ class TestBunnyFarm < Minitest::Test
         assert_equal k.to_s.upcase, @mmc.items[key][k], 'value is upcase of key'
       end
     end
+  end
+
+  def test_access
+    assert_equal 'hello', @mmc[:field1]
+    assert_equal 'world', @mmc[:field2]
+    assert_equal 'A', @mmc[:field3][:a]
+    assert_equal 'B', @mmc[:field3][:b]
+    assert_equal 'C', @mmc[:field4][:c]
+    assert_equal 'D', @mmc[:field4][:d]
+  end
+
+  def test_access_modification
+    assert_equal 'goodbye', @mmc[:field1] = 'goodbye'
+    assert_equal 'moon', @mmc[:field2] = 'moon'
+    assert_equal 'Apple', @mmc[:field3][:a] = 'Apple'
+    assert_equal 'Banana', @mmc[:field3][:b] = 'Banana'
+    assert_equal 'Cherry', @mmc[:field4][:c] = 'Cherry'
+    assert_equal 'Dilbert', @mmc[:field4][:d] = 'Dilbert'
+
+    assert_equal 'goodbye', @mmc[:field1]
+    assert_equal 'moon', @mmc[:field2]
+    assert_equal 'Apple', @mmc[:field3][:a]
+    assert_equal 'Banana', @mmc[:field3][:b]
+    assert_equal 'Cherry', @mmc[:field4][:c]
+    assert_equal 'Dilbert', @mmc[:field4][:d]
+
+  end
+
+  def test_to_hash
+    assert_equal @mmc.items, @mmc.to_hash
+  end
+
+  def test_to_json
+    assert_equal @mmc.payload, @mmc.to_json
+  end
+
+  def test_payload
+    assert @mmc.payload.is_a?(String)
+    assert_equal @test_payload, @mmc.payload
+  end
+
+  def test_insert
+    @mmc << {field5: 'Elmer Fudd'}
+    assert_equal 5, @mmc.keys.size
+    assert_equal 'Elmer Fudd', @mmc[:field5]
+    @mmc << {'field6' => 'Rascally Rabbit'}
+    assert_equal 6, @mmc.keys.size
+    assert_equal 'Rascally Rabbit', @mmc[:field6]
+  end
+
+  def test_publish_failure
+    result = @mmc.success!
+    assert result, 'Its supposed to be true to establish the baseline'
+    result = @mmc.publish
+    refute result, 'publish was supposed to fail'
+    assert_equal 'MyMessageClass unspecified action', @mmc.errors.last
+    assert @mmc.failure?
+    refute @mmc.successful?
+  end
+
+  def test_publish_successful
+    result = @mmc.success! # establish baseline
+    result = @mmc.publish( 'magic' )
+    assert result, 'publish was supposed to succeed'
+    refute @mmc.failure?
+    assert @mmc.successful?
+  end
+
+  def test_errors
+    @mmc.error 'test'
+    assert @mmc.errors.is_a?(Array), 'errors must be an array'
+    assert_equal 'MyMessageClass test', @mmc.errors.last
+    assert_equal 1, @mmc.errors.size
   end
 
 end
