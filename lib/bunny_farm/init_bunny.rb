@@ -3,71 +3,95 @@ require 'erb'
 require 'hashie'
 require 'yaml'
 
-# TODO: need to make the location of the config directory
-#       a parameter
+require_relative 'generic_consumer'
 
-bunny_config = Hashie::Mash.new(
-                  YAML.load(
-                    ERB.new(
-                      File.read(
-                        File.join(JOB_CONFIG.root, 'config/bunny.yml.erb'))).result))[JOB_CONFIG.env]
+module BunnyFarm
 
-AMQP_CONFIG     = Hashie::Mash.new
+  CONFIG     = Hashie::Mash.new
 
-AMQP_CONFIG.app_id     = bunny_config.app_name
+  def self.config
+    if block_given?
+      yield
+    end
 
-debug_me('BEFORE Establishing Connection'){[ :AMQP_CONFIG, :bunny_config ]} if $debug
+    default :env, 'development'
+    default :config_dir, File.dirname(__FILE__) + "/../../config/"
+    default :bunny_file, 'bunny.yml.erb'
+    default :bunny, Hashie::Mash.new(
+                      YAML.load(
+                        ERB.new(
+                          File.read(
+                            File.join(  CONFIG.config_dir,
+                                        CONFIG.bunny_file))).result))[CONFIG.env]
 
-AMQP_CONFIG.connection = Bunny.new(bunny_config).tap(&:start)
-AMQP_CONFIG.channel    = AMQP_CONFIG.connection.create_channel
+    default :app_id, CONFIG.bunny.app_name
 
-AMQP_CONFIG.exchange   = AMQP_CONFIG.channel.topic(
-                            bunny_config.exchange_name,
-                            :durable => true,
-                            :auto_delete => false)
+    default :connection, Bunny.new(CONFIG.bunny).tap(&:start)
 
-AMQP_CONFIG.queue      = AMQP_CONFIG.channel.queue(
-                                bunny_config.queue_name,
-                                durable: true,
-                                auto_delete: false,
-                                arguments: {"x-max-length" => 1000}
-                            ).bind(AMQP_CONFIG.exchange,
-                                :routing_key => bunny_config.routing_key)
+    default :channel, CONFIG.connection.create_channel
 
-# NOTE: routing_key by convention is object.action
-#       For this job, object is a formal class name and
-#       action is a valid method for that class.
+    default :exchange, CONFIG.channel.topic(
+                                CONFIG.bunny.exchange_name,
+                                :durable => true,
+                                :auto_delete => false)
 
-class GenericConsumer < Bunny::Consumer
+    default :queue, CONFIG.channel.queue(
+                                    CONFIG.bunny.queue_name,
+                                    durable: true,
+                                    auto_delete: false,
+                                    arguments: {"x-max-length" => 1000}
+                                ).bind(CONFIG.exchange,
+                                    :routing_key => CONFIG.bunny.routing_key)
 
-  def cancelled?
-    @cancelled
+    default :control_c, false
+
+    default :consumer_tag, 'generic_consumer'
+
+    default :no_ack, false
+    default :exclusive, false
+
+    default :consumer = GenericConsumer.new(
+      CONFIG.channel,
+      CONFIG.queue,
+      CONFIG.consumer_tag,
+      CONFIG.no_ack,
+      CONFIG.exclusive
+    )
+
+
+  end # def self.config
+
+  def self.default(key, value)
+    CONFIG[key] = value if CONFIG[key].nil?
   end
 
-  def handle_cancellation(_)
-    @cancelled = true
+  # FIXME: what I want is to complete forward the
+  #        method call, its parameters and a
+  #        block to a different object
+  def self.on_delivery &block
+    CONFIG.consumer.on_delivery block
   end
 
-end # class SubmissionConsumer < Bunny::Consumer
+  # FIXME:
+  alias 'on_delivery' 'CONFIG.consumer.on_delivery'
+end # module BunnyFarm
 
-AMQP_CONFIG.control_c = false
 
 trap("INT") do
-  AMQP_CONFIG.control_c = true
+  BunnyFarm::CONFIG.control_c = true
   exit if $debug
 end
 
 at_exit do
 
-  if AMQP_CONFIG.control_c
-    # TODO: mitigate the worse thing that could happen
-    a_message = 'Shutting down due to control-C request'
+  if BunnyFarm::CONFIG.control_c
+    STDERR.puts 'Shutting down due to control-C request'
   end
 
-  AMQP_CONFIG.channel.work_pool.shutdown
-  AMQP_CONFIG.channel.work_pool.kill if AMQP_CONFIG.channel.work_pool.running?
-  AMQP_CONFIG.channel.close
-  AMQP_CONFIG.connection.close
+  BunnyFarm::CONFIG.channel.work_pool.shutdown
+  BunnyFarm::CONFIG.channel.work_pool.kill if BunnyFarm::CONFIG.channel.work_pool.running?
+  BunnyFarm::CONFIG.channel.close
+  BunnyFarm::CONFIG.connection.close
 
 end # at_exit do
 
