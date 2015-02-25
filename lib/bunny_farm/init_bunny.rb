@@ -9,90 +9,122 @@ module BunnyFarm
 
   CONFIG     = Hashie::Mash.new
 
-  def self.config
-    if block_given?
-      yield
+  class << self
+
+    def config(&block)
+      if block_given?
+        class_eval(&block)
+      end
+
+      default :env, 'development'
+
+      default :config_dir, File.dirname(__FILE__) + "/../../config/"
+
+      default :bunny_file, 'bunny.yml.erb'
+
+      default :bunny, Hashie::Mash.new(
+                        YAML.load(
+                          ERB.new(
+                            File.read(
+                              File.join(  CONFIG.config_dir,
+                                          CONFIG.bunny_file))).result))[CONFIG.env]
+
+      default :app_id, CONFIG.bunny.app_name
+
+      default :connection, Bunny.new(CONFIG.bunny).tap(&:start)
+
+      default :channel, CONFIG.connection.create_channel
+
+      default :exchange, CONFIG.channel.topic(
+                                  CONFIG.bunny.exchange_name,
+                                  :durable => true,
+                                  :auto_delete => false)
+
+      default :queue, CONFIG.channel.queue(
+                                      CONFIG.bunny.queue_name,
+                                      durable: true,
+                                      auto_delete: false,
+                                      arguments: {"x-max-length" => 1000}
+                                  ).bind(CONFIG.exchange,
+                                      :routing_key => CONFIG.bunny.routing_key)
+
+      default :control_c, false # used to signal that user hit the panic button
+
+      default :consumer_tag, 'generic_consumer'
+
+      default :no_ack,    false # false means that an acknowledgement is required
+      default :exclusive, false
+
+      # Usage: see BunnyFarm#manage
+      default :run, GenericConsumer.new(
+        CONFIG.channel,
+        CONFIG.queue,
+        CONFIG.consumer_tag,
+        CONFIG.no_ack,
+        CONFIG.exclusive
+      )
+
+      default :block, true  # set to false for background processing
+
+    end # def self.config
+
+    def default(key, value)
+      set(key, value) if CONFIG[key].nil?
     end
 
-    default :env, 'development'
-    default :config_dir, File.dirname(__FILE__) + "/../../config/"
-    default :bunny_file, 'bunny.yml.erb'
-    default :bunny, Hashie::Mash.new(
-                      YAML.load(
-                        ERB.new(
-                          File.read(
-                            File.join(  CONFIG.config_dir,
-                                        CONFIG.bunny_file))).result))[CONFIG.env]
+    def set(key, value)
+      STDERR.puts "Setting #{key} ..." if $debug
+      CONFIG[key] = value
+    end
 
-    default :app_id, CONFIG.bunny.app_name
+    def method_missing(method_sym, *args, &block)
+      STDERR.puts "METHOD-MISSING: #{method_sym}(#{args.join(', ')})" if $debug
+      set(method_sym, args.first)
+    end
 
-    default :connection, Bunny.new(CONFIG.bunny).tap(&:start)
+    # Usage:
+    #   BunnyFarm.manage(true)  -- manages queue in background
+    #   BunnyFarm.manage(faise) -- manages queue in foreground (eg. blocks; will not return)
+    #   BunnyFarm.manage -- behavior controlled by BunnyFarm::CONFIG.block
+    def manage(background=nil)
 
-    default :channel, CONFIG.connection.create_channel
+      if background.nil?
+        background = CONFIG.block
+      else
+        background = !background # Counter-intutive based on POV of block
+      end
 
-    default :exchange, CONFIG.channel.topic(
-                                CONFIG.bunny.exchange_name,
-                                :durable => true,
-                                :auto_delete => false)
+      CONFIG.run.on_delivery do |info, metadata, payload|
+        some_object = eval( info.routing_key + '(payload)' )
+        if some_object.successful?
+          CONFIG.run.channel.acknowledge( info.delivery_tag, false )
+        end
+      end # BunnyFarm.run.on_delivery do
 
-    default :queue, CONFIG.channel.queue(
-                                    CONFIG.bunny.queue_name,
-                                    durable: true,
-                                    auto_delete: false,
-                                    arguments: {"x-max-length" => 1000}
-                                ).bind(CONFIG.exchange,
-                                    :routing_key => CONFIG.bunny.routing_key)
+      CONFIG.queue.subscribe_with( CONFIG.run, block: background )
 
-    default :control_c, false
-
-    default :consumer_tag, 'generic_consumer'
-
-    default :no_ack, false
-    default :exclusive, false
-
-    default :consumer = GenericConsumer.new(
-      CONFIG.channel,
-      CONFIG.queue,
-      CONFIG.consumer_tag,
-      CONFIG.no_ack,
-      CONFIG.exclusive
-    )
-
-
-  end # def self.config
-
-  def self.default(key, value)
-    CONFIG[key] = value if CONFIG[key].nil?
-  end
-
-  # FIXME: what I want is to complete forward the
-  #        method call, its parameters and a
-  #        block to a different object
-  def self.on_delivery &block
-    CONFIG.consumer.on_delivery block
-  end
-
-  # FIXME:
-  alias 'on_delivery' 'CONFIG.consumer.on_delivery'
+    end # def self.manage
+  end # class << self
 end # module BunnyFarm
 
 
 trap("INT") do
   BunnyFarm::CONFIG.control_c = true
-  exit if $debug
 end
 
+# Need to clean up the smart pills -- rabbit joke
 at_exit do
 
   if BunnyFarm::CONFIG.control_c
-    STDERR.puts 'Shutting down due to control-C request'
+    STDERR.puts 'Shutting down the BunnyFarm due to control-C request'
   end
 
-  BunnyFarm::CONFIG.channel.work_pool.shutdown
-  BunnyFarm::CONFIG.channel.work_pool.kill if BunnyFarm::CONFIG.channel.work_pool.running?
-  BunnyFarm::CONFIG.channel.close
-  BunnyFarm::CONFIG.connection.close
-
+  unless BunnyFarm::CONFIG.channel.nil?
+    BunnyFarm::CONFIG.channel.work_pool.shutdown
+    BunnyFarm::CONFIG.channel.work_pool.kill if BunnyFarm::CONFIG.channel.work_pool.running?
+    BunnyFarm::CONFIG.channel.close
+    BunnyFarm::CONFIG.connection.close
+  end
 end # at_exit do
 
 
