@@ -1,7 +1,8 @@
-require "bunny_farm/version"
+# bunny_farm.rb
+
 require "bunny_farm/message"
 require "bunny_farm/init_bunny"
 
 module BunnyFarm
-  # Your code goes here...
+  # BynnyFarm: where rabbits are planted ears up
 end

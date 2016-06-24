@@ -7,7 +7,7 @@ defaults: &defaults
   exchange_name:  <%= ENV['AMQP_EXCHANGE']    || 'sandbox' %>
   queue_name:     <%= ENV['AMQP_QUEUE']       || 'my_queue' %>
   routing_key:    <%= ENV['AMQP_ROUTING_KEY'] || "'#.new'" %>
-  app_name:       <%= ENV['AMQP_APP_NAME']    || 'submissions_job' %>
+  app_name:       <%= ENV['AMQP_APP_NAME']    || 'bunny_farm_job' %>
   heartbeat:                  :server   # defualt: will use RabbitMQ setting
   threaded:                   true      # default
   network_recovery_interval:  15.0      # default is in seconds
@@ -22,7 +22,7 @@ test:
 
 production:
   <<: *defaults
-  host:         amqp.upperroom.org
+  host:         amqp.example.com
   vhost:        bunny_farm
 
 

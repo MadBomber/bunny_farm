@@ -84,7 +84,7 @@ module BunnyFarm
 
     # Usage:
     #   BunnyFarm.manage(true)  -- manages queue in background
-    #   BunnyFarm.manage(faise) -- manages queue in foreground (eg. blocks; will not return)
+    #   BunnyFarm.manage(false) -- manages queue in foreground (eg. blocks; will not return)
     #   BunnyFarm.manage -- behavior controlled by BunnyFarm::CONFIG.block
     def manage(background=nil)
 

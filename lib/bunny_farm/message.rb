@@ -144,7 +144,7 @@ module BunnyFarm
     end
 
     def failure?()
-      false == @processing_successful
+      !@processing_successful
     end
 
     def success!()

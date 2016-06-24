@@ -2,17 +2,14 @@
 
 A very simplistic AMQP/JSON-based background job manager.
 
-I am extracting this junk now out of an application so please
-bare with me while I twiddle with it.  Doubt that it will work
-for a while.  So consider this junk as a tought experiment and
-don't use it.
+The bunny farm is an abstraction in which the messages are encapsulated as classes.  Instances of these BunnyFarm::Messages are hopping around the RabbitMQ as JSON strings with routing keys in the form of MessageClassName.action where action is a method on the MessageClassName instance.
 
 ## Why?
 
 - Simplistic?  Because extensive is sometimes overkill.
 - JSON?        Because binary compression is sometimes overkill.
 - Bunny?       Who doen't like bunnies?  They're like cats with long ears.
-- A<QP?        I like AMQP.  I like RabbitMQ as an AMQP broker.
+- AMQP?        I like AMQP.  I like RabbitMQ as an AMQP broker.
 
 BTW, at the farm bunnies are best if planted ears up.
 
@@ -66,15 +63,22 @@ Here is how to publish messages:
 ```Ruby
 require 'bunny_farm'
 require 'my_message_class'
+
 AMQP_CONFIG.app_id = 'my job name'
+
 BunnyFarm.init
+
 mm = MyMessageClass.new
+
 mm[:field1] = 'Hello'
 mm[:field2] = 'World'
 # ...
 mm[:fieldn] = 'whatever'
-mm.publish('mew')
+
+mm.publish('action') # routing key becomes: MyMessageClass.action
+
 puts 'It worked' if mm.successful?
+
 if mm.failed?
   puts 'This sucks.  Here are some errors:'
   puts mm.errors.join("\n")
@@ -83,13 +87,13 @@ end
 ```
 
 
-All of the processing is done in YoirMessageClass.  The
+All of the processing is done in YourMessageClass.  The
 AMQP routing keys look like: "YourMessageClass.action" and
 guess what the "action" is... a method in YourMessageClass.
 
 So assume that I have a public facing website which allows users
 to fill our forms for various purposes.  Say that one of those
-form is to collect suggestions for episodes of a TV show.  I would have a
+forms is to collect suggestions for episodes of a TV show.  I would have a
 form with fields that collect informaion about the user as well as a field
 where their suggestion is recorded.  As a hash it might looks something
 like this:
@@ -103,7 +107,7 @@ form_contents = {
 		phone_number: '+19995551212'
 	},
 	tv_show_name: 'Lost In Space',
-	suggestion: 'What does doctor Smith have to be such a meanie?',
+	suggestion: 'Why does doctor Smith have to be such a meanie?',
 	lots_of_other_house_keeping_junk: {}
 }
 ```
@@ -129,7 +133,7 @@ class TvShowSuggestion < BunnyFarm::Message
 		success? ? send_thank_you : send_sorry_please_try_again
 		auccess!
 		some_super_class_service
-		successful? # ture will ACK the message; false will not
+		successful? # true will ACK the message; false will not
 	end
 
 private
@@ -154,12 +158,6 @@ private
 	end
 end # class TvShowSuggestion < BunnyFarmMessage
 ```
-
-## Development
-
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `bin/console` for an interactive prompt that will allow you to experiment.
-
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release` to create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
 
 ## Contributing
 
