@@ -3,6 +3,12 @@ require 'json'
 require_relative 'message_elements'
 
 module BunnyFarm
+
+  # SNELL: why isn't this:
+  #        module Message
+  #          class Base
+  #        in keeping with the Rails pattern?
+
   class Message
 
     # contains the valid fields
@@ -17,34 +23,32 @@ module BunnyFarm
     # The AMQP delivery information
     attr_accessor :delivery_info
 
-    def initialize(a_json_payload='{"no":"payload provided"}', delivery_info='unknown')
+    # SMELL: ClassName.new is being used as a dispatcher
+    def initialize(a_json_payload='', delivery_info=nil, metadata=nil)
       success! # ass_u_me its gonna work
 
       @payload        = a_json_payload
       @delivery_info  = delivery_info
+      @metadata       = metadata
 
-      return(failure 'Was not received from an AMQP broker') if delivery_info.nil?
-
-      temp = delivery_info.routing_key.split('.')
-      job_name = temp.first
-      action_request = temp.last.to_sym
-
-      unless job_name == self.class.to_s
-        return(failure "Routing error; wrong job name: #{job_name} Expected: #{self.class}")
-      end
-
-      unless @@allowed_actions.include?(action_request)
-        return(failure "invalid action request: #{action_request}  Expected: #{actions.join(',')}")
-      end
-
-      if a_json_payload.empty?
+      if @payload.empty?
         return(failure 'payload was empty')
       end
 
-      begin
-        @elements = MessageElements.new( JSON.parse(payload) )
-      rescue Exception => e
-        return(failure e)
+      if String == @payload.class
+        begin
+          @elements = MessageElements.new( JSON.parse(@payload) )
+        rescue Exception => e
+          return(failure e)
+        end
+      elsif Hash == @payload.class
+        begin
+          @elements = MessageElements.new( @payload )
+        rescue Exception => e
+          return(failure e)
+        end
+      else
+        return(failure "payload is unknown class: #{@payload.class}")
       end
 
       begin
@@ -53,7 +57,32 @@ module BunnyFarm
         return(failure e)
       end
 
-      self.send(action_request) if successful?
+
+      # SMELL: is this necessary if a hash was passed in?
+      @payload = to_json unless String == @payload.class
+
+
+      # NOTE: This is the message dispatcher
+      unless @delivery_info.nil?
+        params          = @delivery_info.routing_key.split('.')
+        job_name        = params.shift
+        action_request  = params.shift.to_sym
+
+        unless job_name == self.class.to_s
+          return(failure "Routing error; wrong job name: #{job_name} Expected: #{self.class}")
+        end
+
+        unless @@allowed_actions.include?(action_request)
+          return(failure "invalid action request: #{action_request}  Expected: #{@@allowed_actions.join(',')}")
+        end
+
+        if successful?
+          self.send(action_request, params)
+STDERR.puts "Successful? #{success?}"
+          CONFIG.run.channel.acknowledge( delivery_info.delivery_tag, false ) if success?
+        end
+      end # unless delivery_info.nil?
+
     end # def initialize(a_json_payload, delivery_info=nil)
 
 
@@ -71,10 +100,10 @@ module BunnyFarm
       @payload = to_json
 
       begin
-        AMQP_CONFIG.exchange.publish(
+        CONFIG.exchange.publish(
           @payload,
           routing_key: "#{self.class}.#{action}",
-          app_id: AMQP_CONFIG.app_id
+          app_id: CONFIG.app_id
         )
       rescue Exception => e
         failure(e)
@@ -158,17 +187,23 @@ module BunnyFarm
 
     # A little DSL candy
     class << self
+
+      # SMELL: These class variables... are they of ::Message or of
+      #        its subclass?  If ::Message then that is a problem.
       def fields(*args)
         @@item_names = args.flatten
       end
+
       def actions(*args)
         @@allowed_actions = args.flatten.map do |s|
           s.is_a?(Symbol) ? s : s.to_sym
         end
       end
+
       def item_names
         @@item_names
       end
+
       def allowed_actions
         @@allowed_actions
       end

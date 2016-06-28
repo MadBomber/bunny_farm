@@ -11,7 +11,13 @@ module BunnyFarm
 
   class << self
 
-    def config(&block)
+    def config(config_file=nil, &block)
+
+      unless config_file.nil?
+        config_dir  File.dirname(config_file)
+        bunny_file  File.basename(config_file)
+      end
+
       if block_given?
         class_eval(&block)
       end
@@ -95,9 +101,9 @@ module BunnyFarm
       end
 
       CONFIG.run.on_delivery do |info, metadata, payload|
-        some_object = eval( info.routing_key + '(payload)' )
-        if some_object.successful?
-          CONFIG.run.channel.acknowledge( info.delivery_tag, false )
+        Thread.new do
+          klass   = Kernel.const_get info.routing_key.split('.').first
+          status  = klass.new(payload, info, metadata)
         end
       end # BunnyFarm.run.on_delivery do
 
