@@ -8,5 +8,5 @@ module BunnyFarm
     def handle_cancellation(_)
       @cancelled = true
     end
-  end # class SubmissionConsumer < Bunny::Consumer
+  end # class GenericConsumer < Bunny::Consumer
 end # module BunnyFarm
