@@ -116,6 +116,7 @@ end # module BunnyFarm
 
 trap("INT") do
   BunnyFarm::CONFIG.control_c = true
+  exit
 end
 
 # Need to clean up the smart pills -- rabbit joke
