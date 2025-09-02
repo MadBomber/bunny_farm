@@ -10,6 +10,8 @@
         <br /><br />
         <a href="https://badge.fury.io/rb/bunny_farm"><img src="https://badge.fury.io/rb/bunny_farm.svg" alt="Gem Version" /></a>
         <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT" /></a>
+        <br/><br/>
+        <a href="https://madbomber.github.io/bunny_farm/">Comprehensive Documentation Website</a>
       </td>
       <td width="60%" align="left" valign="top">
         Like a well-organized farm where messages hop efficiently from producers to consumers, BunnyFarm provides a lightweight Ruby gem for managing background jobs using RabbitMQ. Each message becomes a living entity with its own behavior, routing intelligently through the message broker to the right workers.
