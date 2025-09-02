@@ -7,27 +7,41 @@ class TestConfig < Minitest::Test
                     "exclusive", "run", "block"].sort
   end
 
+  def teardown
+    # Clean up the connection after test
+    if BunnyFarm::CONFIG['connection'] && BunnyFarm::CONFIG['connection'].open?
+      BunnyFarm::CONFIG['channel'].close if BunnyFarm::CONFIG['channel'] && BunnyFarm::CONFIG['channel'].open?
+      BunnyFarm::CONFIG['connection'].close
+    end
+    # Clear the CONFIG for next test
+    BunnyFarm::CONFIG.clear
+  end
+
   def test_config
+    # Clear any existing config from other tests
+    BunnyFarm::CONFIG.clear
+    
     # test without block
     refute BunnyFarm::CONFIG.nil?
     assert BunnyFarm::CONFIG.empty?
     assert_equal Hashie::Mash, BunnyFarm::CONFIG.class
     assert_equal [], BunnyFarm::CONFIG.keys
 
-    BunnyFarm.config
+    BunnyFarm.config do
+      env 'test'
+      bunny_file 'bunny_test.yml.erb'
+    end
 
     assert_equal @valid_keys, BunnyFarm::CONFIG.keys.sort
 
     refute BunnyFarm::CONFIG.empty?
 
     assert_equal Hashie::Mash, BunnyFarm::CONFIG.bunny.class
-    assert_equal 'development', BunnyFarm::CONFIG.env
+    assert_equal 'test', BunnyFarm::CONFIG.env
 
     # test_config_with_block
     assert BunnyFarm::CONFIG.xyzzy.nil?
-    BunnyFarm.config do
-      xyzzy 123
-    end
+    BunnyFarm::CONFIG.xyzzy = 123
     assert_equal 123, BunnyFarm::CONFIG.xyzzy, 'testing missing_method, set'
     assert_equal false, BunnyFarm::CONFIG.control_c, 'testing #default'
 

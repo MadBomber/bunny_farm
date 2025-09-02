@@ -1,0 +1,140 @@
+<svg width="800" height="550" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background transparent -->
+  <rect width="800" height="550" fill="transparent"/>
+  
+  <!-- Title -->
+  <text x="400" y="30" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#e0e0e0">
+    Task Scheduler with Retry Logic
+  </text>
+  
+  <!-- Scheduler (Producer) -->
+  <g>
+    <rect x="50" y="70" width="150" height="100" rx="10" fill="#2d3748" stroke="#9f7aea" stroke-width="2"/>
+    <text x="125" y="95" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#9f7aea">SCHEDULER</text>
+    <text x="125" y="115" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#e0e0e0">Creates tasks with</text>
+    <text x="125" y="130" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#e0e0e0">scheduled times</text>
+    <text x="125" y="145" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#e0e0e0">⏰ schedule_for</text>
+    <text x="125" y="160" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#e0e0e0">🔄 retry_count: 0</text>
+  </g>
+  
+  <!-- Worker (Consumer) -->
+  <g>
+    <rect x="600" y="70" width="150" height="100" rx="10" fill="#2d3748" stroke="#ed8936" stroke-width="2"/>
+    <text x="675" y="95" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#ed8936">WORKER</text>
+    <text x="675" y="115" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#e0e0e0">Executes scheduled</text>
+    <text x="675" y="130" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#e0e0e0">tasks at right time</text>
+    <text x="675" y="145" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#e0e0e0">⚡ Execute actions</text>
+    <text x="675" y="160" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#e0e0e0">🔄 Handle retries</text>
+  </g>
+  
+  <!-- Task Types -->
+  <g>
+    <rect x="250" y="70" width="300" height="100" rx="10" fill="#1a202c" stroke="#4a5568" stroke-width="1"/>
+    <text x="400" y="95" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#68d391">Task Types</text>
+    
+    <g>
+      <rect x="270" y="110" width="60" height="25" rx="3" fill="#4299e1" stroke="#4299e1" stroke-width="1"/>
+      <text x="300" y="125" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#1a202c">📧 Email</text>
+      
+      <rect x="340" y="110" width="60" height="25" rx="3" fill="#68d391" stroke="#68d391" stroke-width="1"/>
+      <text x="370" y="125" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#1a202c">💾 Backup</text>
+      
+      <rect x="410" y="110" width="60" height="25" rx="3" fill="#ed8936" stroke="#ed8936" stroke-width="1"/>
+      <text x="440" y="125" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#1a202c">📊 Report</text>
+      
+      <rect x="480" y="110" width="60" height="25" rx="3" fill="#9f7aea" stroke="#9f7aea" stroke-width="1"/>
+      <text x="510" y="125" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#1a202c">🧹 Cleanup</text>
+    </g>
+    
+    <text x="400" y="155" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#9ca3af">Different task types with specific logic</text>
+  </g>
+  
+  <!-- Execution Flow -->
+  <g>
+    <text x="400" y="210" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#f6e05e">Execution Flow</text>
+    
+    <!-- Execute -->
+    <rect x="100" y="230" width="100" height="60" rx="8" fill="#2d3748" stroke="#68d391" stroke-width="2"/>
+    <text x="150" y="250" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#68d391">EXECUTE</text>
+    <text x="150" y="265" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#e0e0e0">Check timing</text>
+    <text x="150" y="280" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#e0e0e0">Run task logic</text>
+    
+    <!-- Success -->
+    <rect x="250" y="230" width="100" height="60" rx="8" fill="#2d3748" stroke="#68d391" stroke-width="2"/>
+    <text x="300" y="250" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#68d391">✅ SUCCESS</text>
+    <text x="300" y="265" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#e0e0e0">Task completed</text>
+    <text x="300" y="280" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#e0e0e0">Send notifications</text>
+    
+    <!-- Retry -->
+    <rect x="450" y="230" width="100" height="60" rx="8" fill="#2d3748" stroke="#f6e05e" stroke-width="2"/>
+    <text x="500" y="250" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#f6e05e">🔄 RETRY</text>
+    <text x="500" y="265" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#e0e0e0">Exponential</text>
+    <text x="500" y="280" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#e0e0e0">backoff delay</text>
+    
+    <!-- Failure -->
+    <rect x="600" y="230" width="100" height="60" rx="8" fill="#2d3748" stroke="#e53e3e" stroke-width="2"/>
+    <text x="650" y="250" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#e53e3e">❌ FAILURE</text>
+    <text x="650" y="265" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#e0e0e0">Max retries</text>
+    <text x="650" y="280" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#e0e0e0">Send alerts</text>
+  </g>
+  
+  <!-- Flow Arrows -->
+  <defs>
+    <marker id="arrow-green-2" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#68d391"/>
+    </marker>
+    <marker id="arrow-yellow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#f6e05e"/>
+    </marker>
+    <marker id="arrow-red" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#e53e3e"/>
+    </marker>
+  </defs>
+  
+  <!-- Execute to Success -->
+  <line x1="200" y1="250" x2="250" y2="250" stroke="#68d391" stroke-width="2" marker-end="url(#arrow-green-2)"/>
+  <text x="225" y="245" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#68d391">success</text>
+  
+  <!-- Execute to Retry -->
+  <line x1="200" y1="270" x2="450" y2="270" stroke="#f6e05e" stroke-width="2" marker-end="url(#arrow-yellow)"/>
+  <text x="325" y="285" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#f6e05e">error (retry < 3)</text>
+  
+  <!-- Retry back to Execute -->
+  <path d="M 500 230 Q 400 190 150 230" stroke="#f6e05e" stroke-width="2" fill="none" marker-end="url(#arrow-yellow)"/>
+  <text x="350" y="205" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#f6e05e">retry after delay</text>
+  
+  <!-- Retry to Failure -->
+  <line x1="550" y1="260" x2="600" y2="260" stroke="#e53e3e" stroke-width="2" marker-end="url(#arrow-red)"/>
+  <text x="575" y="255" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#e53e3e">max retries</text>
+  
+  <!-- Retry Logic Details -->
+  <g>
+    <rect x="50" y="330" width="700" height="120" rx="10" fill="#2d3748" stroke="#f6e05e" stroke-width="2"/>
+    <text x="400" y="355" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#f6e05e">Retry Logic with Exponential Backoff</text>
+    
+    <g>
+      <text x="70" y="380" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#68d391">Attempt 1:</text>
+      <text x="140" y="380" font-family="Arial, sans-serif" font-size="12" fill="#e0e0e0">Execute immediately → Fail → Wait 2¹ = 2 seconds</text>
+      
+      <text x="70" y="400" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#f6e05e">Attempt 2:</text>
+      <text x="140" y="400" font-family="Arial, sans-serif" font-size="12" fill="#e0e0e0">Execute after delay → Fail → Wait 2² = 4 seconds</text>
+      
+      <text x="70" y="420" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#ed8936">Attempt 3:</text>
+      <text x="140" y="420" font-family="Arial, sans-serif" font-size="12" fill="#e0e0e0">Execute after delay → Fail → Give up, send alert</text>
+    </g>
+  </g>
+  
+  <!-- Code Example -->
+  <g>
+    <rect x="50" y="470" width="700" height="70" rx="10" fill="#1a202c" stroke="#4a5568" stroke-width="1"/>
+    <text x="400" y="490" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#9ca3af">Task Definition Example</text>
+    
+    <text x="60" y="510" font-family="monospace" font-size="10" fill="#f6e05e">task_type:</text>
+    <text x="120" y="510" font-family="monospace" font-size="10" fill="#e0e0e0">"email_reminder"</text>
+    <text x="250" y="510" font-family="monospace" font-size="10" fill="#f6e05e">scheduled_for:</text>
+    <text x="340" y="510" font-family="monospace" font-size="10" fill="#e0e0e0">"2024-01-01 14:30:00"</text>
+    
+    <text x="60" y="525" font-family="monospace" font-size="10" fill="#f6e05e">payload:</text>
+    <text x="110" y="525" font-family="monospace" font-size="10" fill="#e0e0e0">{ recipient: "user@example.com", subject: "Meeting reminder" }</text>
+  </g>
+</svg>

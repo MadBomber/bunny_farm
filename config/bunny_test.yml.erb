@@ -1,0 +1,29 @@
+defaults: &defaults
+  host:           <%= ENV['AMQP_HOST']        || 'localhost' %>
+  vhost:          <%= ENV['AMQP_VHOST']       || '/' %>
+  port:           <%= (ENV['AMQP_PORT']       || 5672).to_i %>
+  user:           <%= ENV['AMQP_USER']        || 'guest' %>
+  pass:           <%= ENV['AMQP_PASS']        || 'guest' %>
+  exchange_name:  <%= ENV['AMQP_EXCHANGE']    || 'test_exchange' %>
+  queue_name:     <%= ENV['AMQP_QUEUE']       || 'test_queue' %>
+  routing_key:    <%= ENV['AMQP_ROUTING_KEY'] || "'#.test'" %>
+  app_name:       <%= ENV['AMQP_APP_NAME']    || 'bunny_farm_test' %>
+  heartbeat:                  :server   # defualt: will use RabbitMQ setting
+  threaded:                   true      # default
+  network_recovery_interval:  15.0      # default is in seconds
+  automatically_recover:      true      # default
+  frame_max:                  131072    # default
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+  vhost: /
+  user: guest
+  pass: guest
+
+production:
+  <<: *defaults
+  host:         amqp.example.com
+  vhost:        bunny_farm

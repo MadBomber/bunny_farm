@@ -1,0 +1,126 @@
+<svg width="900" height="600" xmlns="http://www.w3.org/2000/svg">
+  <rect width="900" height="600" fill="transparent"/>
+  
+  <!-- Title -->
+  <text x="450" y="30" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#e0e0e0">
+    Message API Overview
+  </text>
+  
+  <!-- Class Hierarchy -->
+  <g>
+    <text x="450" y="70" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#4299e1">
+      Class Hierarchy and API Structure
+    </text>
+    
+    <!-- Base Message Class -->
+    <rect x="350" y="90" width="200" height="80" rx="8" fill="#2d3748" stroke="#4299e1" stroke-width="3"/>
+    <text x="450" y="115" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#4299e1">BunnyFarm::Message</text>
+    <text x="450" y="135" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#e0e0e0">Base class for all messages</text>
+    <text x="450" y="150" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#9ca3af">Core functionality</text>
+    <text x="450" y="165" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#9ca3af">Field management, publishing</text>
+    
+    <!-- Derived Classes -->
+    <rect x="100" y="200" width="150" height="60" rx="6" fill="#2d3748" stroke="#68d391" stroke-width="2"/>
+    <text x="175" y="225" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#68d391">OrderMessage</text>
+    <text x="175" y="240" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#e0e0e0">extends Message</text>
+    <text x="175" y="255" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#9ca3af">Business logic</text>
+    
+    <rect x="275" y="200" width="150" height="60" rx="6" fill="#2d3748" stroke="#9f7aea" stroke-width="2"/>
+    <text x="350" y="225" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#9f7aea">EmailMessage</text>
+    <text x="350" y="240" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#e0e0e0">extends Message</text>
+    <text x="350" y="255" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#9ca3af">Email handling</text>
+    
+    <rect x="450" y="200" width="150" height="60" rx="6" fill="#2d3748" stroke="#f6e05e" stroke-width="2"/>
+    <text x="525" y="225" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#f6e05e">ReportMessage</text>
+    <text x="525" y="240" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#e0e0e0">extends Message</text>
+    <text x="525" y="255" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#9ca3af">Report generation</text>
+    
+    <rect x="625" y="200" width="150" height="60" rx="6" fill="#2d3748" stroke="#e53e3e" stroke-width="2"/>
+    <text x="700" y="225" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#e53e3e">TaskMessage</text>
+    <text x="700" y="240" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#e0e0e0">extends Message</text>
+    <text x="700" y="255" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#9ca3af">Task execution</text>
+  </g>
+  
+  <!-- Core API Methods -->
+  <g>
+    <text x="450" y="310" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#e0e0e0">
+      Core API Methods by Category
+    </text>
+    
+    <!-- Initialization -->
+    <rect x="50" y="330" width="170" height="120" rx="6" fill="#2d3748" stroke="#68d391" stroke-width="1"/>
+    <text x="135" y="355" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="#68d391">Initialization</text>
+    <text x="60" y="375" font-family="monospace" font-size="10" fill="#e0e0e0">new(data = {})</text>
+    <text x="60" y="390" font-family="monospace" font-size="10" fill="#e0e0e0">initialize(data)</text>
+    <text x="60" y="405" font-family="monospace" font-size="10" fill="#e0e0e0">setup!</text>
+    <text x="60" y="420" font-family="monospace" font-size="10" fill="#e0e0e0">configure(options)</text>
+    <text x="60" y="435" font-family="monospace" font-size="10" fill="#e0e0e0">from_json(json_str)</text>
+    
+    <!-- Field Management -->
+    <rect x="240" y="330" width="170" height="120" rx="6" fill="#2d3748" stroke="#4299e1" stroke-width="1"/>
+    <text x="325" y="355" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="#4299e1">Field Management</text>
+    <text x="250" y="375" font-family="monospace" font-size="10" fill="#e0e0e0">[](field_name)</text>
+    <text x="250" y="390" font-family="monospace" font-size="10" fill="#e0e0e0">[]=(field, value)</text>
+    <text x="250" y="405" font-family="monospace" font-size="10" fill="#e0e0e0">field_names</text>
+    <text x="250" y="420" font-family="monospace" font-size="10" fill="#e0e0e0">has_field?(name)</text>
+    <text x="250" y="435" font-family="monospace" font-size="10" fill="#e0e0e0">clear_field(name)</text>
+    
+    <!-- Publishing -->
+    <rect x="430" y="330" width="170" height="120" rx="6" fill="#2d3748" stroke="#9f7aea" stroke-width="1"/>
+    <text x="515" y="355" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="#9f7aea">Publishing</text>
+    <text x="440" y="375" font-family="monospace" font-size="10" fill="#e0e0e0">publish(action)</text>
+    <text x="440" y="390" font-family="monospace" font-size="10" fill="#e0e0e0">publish_at(time)</text>
+    <text x="440" y="405" font-family="monospace" font-size="10" fill="#e0e0e0">publish_in(delay)</text>
+    <text x="440" y="420" font-family="monospace" font-size="10" fill="#e0e0e0">schedule(cron)</text>
+    <text x="440" y="435" font-family="monospace" font-size="10" fill="#e0e0e0">broadcast</text>
+    
+    <!-- Validation -->
+    <rect x="620" y="330" width="170" height="120" rx="6" fill="#2d3748" stroke="#f6e05e" stroke-width="1"/>
+    <text x="705" y="355" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="#f6e05e">Validation</text>
+    <text x="630" y="375" font-family="monospace" font-size="10" fill="#e0e0e0">valid?</text>
+    <text x="630" y="390" font-family="monospace" font-size="10" fill="#e0e0e0">validate!</text>
+    <text x="630" y="405" font-family="monospace" font-size="10" fill="#e0e0e0">errors</text>
+    <text x="630" y="420" font-family="monospace" font-size="10" fill="#e0e0e0">add_error(msg)</text>
+    <text x="630" y="435" font-family="monospace" font-size="10" fill="#e0e0e0">clear_errors</text>
+  </g>
+  
+  <!-- Method Usage Examples -->
+  <g>
+    <text x="450" y="490" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#e0e0e0">
+      Common Usage Patterns
+    </text>
+    
+    <!-- Creation Pattern -->
+    <rect x="50" y="510" width="250" height="70" rx="6" fill="#1a202c" stroke="#68d391" stroke-width="1"/>
+    <text x="175" y="530" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#68d391">Message Creation</text>
+    <text x="60" y="545" font-family="monospace" font-size="10" fill="#e0e0e0">msg = OrderMessage.new</text>
+    <text x="60" y="560" font-family="monospace" font-size="10" fill="#e0e0e0">msg[:order_id] = 12345</text>
+    <text x="60" y="575" font-family="monospace" font-size="10" fill="#e0e0e0">msg.setup!</text>
+    
+    <!-- Publishing Pattern -->
+    <rect x="320" y="510" width="250" height="70" rx="6" fill="#1a202c" stroke="#9f7aea" stroke-width="1"/>
+    <text x="445" y="530" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#9f7aea">Publishing Pattern</text>
+    <text x="330" y="545" font-family="monospace" font-size="10" fill="#e0e0e0">msg.validate!</text>
+    <text x="330" y="560" font-family="monospace" font-size="10" fill="#e0e0e0">msg.publish('process')</text>
+    <text x="330" y="575" font-family="monospace" font-size="10" fill="#e0e0e0"># Routes to OrderMessage.process</text>
+    
+    <!-- Error Handling Pattern -->
+    <rect x="590" y="510" width="250" height="70" rx="6" fill="#1a202c" stroke="#e53e3e" stroke-width="1"/>
+    <text x="715" y="530" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#e53e3e">Error Handling</text>
+    <text x="600" y="545" font-family="monospace" font-size="10" fill="#e0e0e0">unless msg.valid?</text>
+    <text x="610" y="560" font-family="monospace" font-size="10" fill="#e0e0e0">puts msg.errors</text>
+    <text x="600" y="575" font-family="monospace" font-size="10" fill="#e0e0e0">end</text>
+  </g>
+  
+  <!-- Inheritance Arrows -->
+  <defs>
+    <marker id="arrow-inherit" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#4299e1"/>
+    </marker>
+  </defs>
+  
+  <line x1="400" y1="170" x2="200" y2="190" stroke="#4299e1" stroke-width="2" marker-end="url(#arrow-inherit)"/>
+  <line x1="430" y1="170" x2="350" y2="190" stroke="#4299e1" stroke-width="2" marker-end="url(#arrow-inherit)"/>
+  <line x1="470" y1="170" x2="525" y2="190" stroke="#4299e1" stroke-width="2" marker-end="url(#arrow-inherit)"/>
+  <line x1="500" y1="170" x2="675" y2="190" stroke="#4299e1" stroke-width="2" marker-end="url(#arrow-inherit)"/>
+</svg>

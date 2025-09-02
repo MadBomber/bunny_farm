@@ -1,0 +1,96 @@
+<svg width="700" height="450" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background transparent -->
+  <rect width="700" height="450" fill="transparent"/>
+  
+  <!-- Title -->
+  <text x="350" y="30" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#e0e0e0">
+    Simple Producer-Consumer Pattern
+  </text>
+  
+  <!-- Producer Section -->
+  <g>
+    <rect x="50" y="70" width="200" height="150" rx="10" fill="#2d3748" stroke="#68d391" stroke-width="2"/>
+    <text x="150" y="95" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#68d391">PRODUCER</text>
+    <text x="150" y="115" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#e0e0e0">producer.rb</text>
+    
+    <!-- Code snippet -->
+    <rect x="60" y="130" width="180" height="80" fill="#1a202c" stroke="#4a5568" stroke-width="1"/>
+    <text x="65" y="145" font-family="monospace" font-size="10" fill="#68d391">msg = GreetingMessage.new</text>
+    <text x="65" y="160" font-family="monospace" font-size="10" fill="#e0e0e0">msg[:name] = "User 1"</text>
+    <text x="65" y="175" font-family="monospace" font-size="10" fill="#e0e0e0">msg[:timestamp] = Time.now</text>
+    <text x="65" y="190" font-family="monospace" font-size="10" fill="#f6e05e">msg.publish('say_hello')</text>
+    <text x="65" y="205" font-family="monospace" font-size="10" fill="#9ca3af"># Routing: GreetingMessage.say_hello</text>
+  </g>
+  
+  <!-- RabbitMQ Queue -->
+  <g>
+    <rect x="300" y="100" width="100" height="90" rx="10" fill="#1a365d" stroke="#2b6cb0" stroke-width="2"/>
+    <text x="350" y="125" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#90cdf4">Queue</text>
+    
+    <!-- Message icons in queue -->
+    <rect x="315" y="135" width="70" height="12" rx="2" fill="#4299e1"/>
+    <rect x="315" y="150" width="70" height="12" rx="2" fill="#4299e1"/>
+    <rect x="315" y="165" width="70" height="12" rx="2" fill="#4299e1"/>
+    
+    <text x="350" y="180" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#bee3f8">Messages</text>
+  </g>
+  
+  <!-- Consumer Section -->
+  <g>
+    <rect x="450" y="70" width="200" height="150" rx="10" fill="#2d3748" stroke="#ed8936" stroke-width="2"/>
+    <text x="550" y="95" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#ed8936">CONSUMER</text>
+    <text x="550" y="115" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#e0e0e0">consumer.rb</text>
+    
+    <!-- Code snippet -->
+    <rect x="460" y="130" width="180" height="80" fill="#1a202c" stroke="#4a5568" stroke-width="1"/>
+    <text x="465" y="145" font-family="monospace" font-size="10" fill="#ed8936">def say_hello(*args)</text>
+    <text x="465" y="160" font-family="monospace" font-size="10" fill="#e0e0e0">  puts "Hello #{@items[:name]}"</text>
+    <text x="465" y="175" font-family="monospace" font-size="10" fill="#e0e0e0">  sleep 0.5</text>
+    <text x="465" y="190" font-family="monospace" font-size="10" fill="#68d391">  success!</text>
+    <text x="465" y="205" font-family="monospace" font-size="10" fill="#ed8936">end</text>
+  </g>
+  
+  <!-- Arrows -->
+  <defs>
+    <marker id="arrow-green" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#68d391"/>
+    </marker>
+    <marker id="arrow-orange" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#ed8936"/>
+    </marker>
+  </defs>
+  
+  <!-- Producer to Queue -->
+  <line x1="250" y1="145" x2="300" y2="145" stroke="#68d391" stroke-width="2" marker-end="url(#arrow-green)"/>
+  <text x="275" y="140" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#68d391">publish</text>
+  
+  <!-- Queue to Consumer -->
+  <line x1="400" y1="145" x2="450" y2="145" stroke="#ed8936" stroke-width="2" marker-end="url(#arrow-orange)"/>
+  <text x="425" y="140" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#ed8936">consume</text>
+  
+  <!-- Message Class Definition -->
+  <g>
+    <rect x="50" y="260" width="600" height="160" rx="10" fill="#2d3748" stroke="#9f7aea" stroke-width="2"/>
+    <text x="350" y="285" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#9f7aea">GreetingMessage Class</text>
+    <text x="350" y="305" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#e0e0e0">simple_message.rb</text>
+    
+    <!-- Code -->
+    <rect x="70" y="320" width="560" height="90" fill="#1a202c" stroke="#4a5568" stroke-width="1"/>
+    <text x="80" y="340" font-family="monospace" font-size="11" fill="#9f7aea">class GreetingMessage &lt; BunnyFarm::Message</text>
+    <text x="90" y="355" font-family="monospace" font-size="11" fill="#68d391">fields</text>
+    <text x="130" y="355" font-family="monospace" font-size="11" fill="#e0e0e0">:name, :greeting_type, :timestamp</text>
+    <text x="90" y="370" font-family="monospace" font-size="11" fill="#f6e05e">actions</text>
+    <text x="130" y="370" font-family="monospace" font-size="11" fill="#e0e0e0">:say_hello, :say_goodbye</text>
+    <text x="90" y="385" font-family="monospace" font-size="11" fill="#9ca3af"># Action methods defined here...</text>
+    <text x="80" y="400" font-family="monospace" font-size="11" fill="#9f7aea">end</text>
+  </g>
+  
+  <!-- Terminal outputs -->
+  <g>
+    <text x="50" y="445" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#68d391">Producer Output:</text>
+    <text x="180" y="445" font-family="monospace" font-size="10" fill="#9ca3af">✅ Sent hello message for User 1</text>
+    
+    <text x="350" y="445" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#ed8936">Consumer Output:</text>
+    <text x="480" y="445" font-family="monospace" font-size="10" fill="#9ca3af">👋 Hello, User 1!</text>
+  </g>
+</svg>

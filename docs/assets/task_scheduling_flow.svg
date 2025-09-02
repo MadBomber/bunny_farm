@@ -1,0 +1,139 @@
+<svg width="900" height="500" xmlns="http://www.w3.org/2000/svg">
+  <rect width="900" height="500" fill="transparent"/>
+  
+  <!-- Title -->
+  <text x="450" y="30" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#e0e0e0">
+    Task Scheduling and Delayed Execution
+  </text>
+  
+  <!-- Timeline -->
+  <line x1="100" y1="80" x2="800" y2="80" stroke="#666" stroke-width="2"/>
+  <text x="450" y="70" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#9ca3af">Timeline</text>
+  
+  <!-- Time markers -->
+  <line x1="150" y1="75" x2="150" y2="85" stroke="#666" stroke-width="1"/>
+  <text x="150" y="100" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#9ca3af">Now</text>
+  
+  <line x1="350" y1="75" x2="350" y2="85" stroke="#666" stroke-width="1"/>
+  <text x="350" y="100" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#9ca3af">+5 min</text>
+  
+  <line x1="550" y1="75" x2="550" y2="85" stroke="#666" stroke-width="1"/>
+  <text x="550" y="100" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#9ca3af">+1 hour</text>
+  
+  <line x1="750" y1="75" x2="750" y2="85" stroke="#666" stroke-width="1"/>
+  <text x="750" y="100" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#9ca3af">+1 day</text>
+  
+  <!-- Immediate Processing -->
+  <g>
+    <rect x="80" y="130" width="140" height="60" rx="8" fill="#2d3748" stroke="#68d391" stroke-width="2"/>
+    <text x="150" y="150" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#68d391">Immediate</text>
+    <text x="90" y="170" font-family="monospace" font-size="10" fill="#e0e0e0">message.publish('send')</text>
+    <text x="90" y="185" font-family="Arial, sans-serif" font-size="9" fill="#9ca3af">Processes right away</text>
+  </g>
+  
+  <!-- Delayed Processing -->
+  <g>
+    <rect x="280" y="130" width="140" height="60" rx="8" fill="#2d3748" stroke="#4299e1" stroke-width="2"/>
+    <text x="350" y="150" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#4299e1">Short Delay</text>
+    <text x="290" y="170" font-family="monospace" font-size="10" fill="#e0e0e0">message.publish_at(</text>
+    <text x="300" y="185" font-family="monospace" font-size="10" fill="#e0e0e0">5.minutes.from_now)</text>
+  </g>
+  
+  <!-- Scheduled Processing -->
+  <g>
+    <rect x="480" y="130" width="140" height="60" rx="8" fill="#2d3748" stroke="#f6e05e" stroke-width="2"/>
+    <text x="550" y="150" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#f6e05e">Scheduled</text>
+    <text x="490" y="170" font-family="monospace" font-size="10" fill="#e0e0e0">message.schedule(</text>
+    <text x="500" y="185" font-family="monospace" font-size="10" fill="#e0e0e0">'0 9 * * 1')</text>
+  </g>
+  
+  <!-- Long Delay -->
+  <g>
+    <rect x="680" y="130" width="140" height="60" rx="8" fill="#2d3748" stroke="#9f7aea" stroke-width="2"/>
+    <text x="750" y="150" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#9f7aea">Long Delay</text>
+    <text x="690" y="170" font-family="monospace" font-size="10" fill="#e0e0e0">message.publish_in(</text>
+    <text x="700" y="185" font-family="monospace" font-size="10" fill="#e0e0e0">1.day)</text>
+  </g>
+  
+  <!-- Retry Pattern -->
+  <g>
+    <text x="450" y="250" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#e0e0e0">
+      Retry Pattern with Exponential Backoff
+    </text>
+    
+    <!-- Initial attempt -->
+    <rect x="50" y="280" width="100" height="50" rx="6" fill="#2d3748" stroke="#68d391" stroke-width="2"/>
+    <text x="100" y="300" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#68d391">Initial</text>
+    <text x="100" y="315" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#e0e0e0">Attempt</text>
+    
+    <!-- Arrow -->
+    <defs>
+      <marker id="arrow-retry" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+        <polygon points="0 0, 8 3, 0 6" fill="#e53e3e"/>
+      </marker>
+    </defs>
+    
+    <line x1="160" y1="305" x2="200" y2="305" stroke="#e53e3e" stroke-width="2" marker-end="url(#arrow-retry)"/>
+    <text x="180" y="300" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#e53e3e">FAIL</text>
+    
+    <!-- Retry 1 -->
+    <rect x="210" y="280" width="100" height="50" rx="6" fill="#2d3748" stroke="#f6e05e" stroke-width="2"/>
+    <text x="260" y="300" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#f6e05e">Retry 1</text>
+    <text x="260" y="315" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#e0e0e0">+2 seconds</text>
+    
+    <line x1="320" y1="305" x2="360" y2="305" stroke="#e53e3e" stroke-width="2" marker-end="url(#arrow-retry)"/>
+    <text x="340" y="300" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#e53e3e">FAIL</text>
+    
+    <!-- Retry 2 -->
+    <rect x="370" y="280" width="100" height="50" rx="6" fill="#2d3748" stroke="#4299e1" stroke-width="2"/>
+    <text x="420" y="300" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#4299e1">Retry 2</text>
+    <text x="420" y="315" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#e0e0e0">+4 seconds</text>
+    
+    <line x1="480" y1="305" x2="520" y2="305" stroke="#e53e3e" stroke-width="2" marker-end="url(#arrow-retry)"/>
+    <text x="500" y="300" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#e53e3e">FAIL</text>
+    
+    <!-- Retry 3 -->
+    <rect x="530" y="280" width="100" height="50" rx="6" fill="#2d3748" stroke="#9f7aea" stroke-width="2"/>
+    <text x="580" y="300" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#9f7aea">Retry 3</text>
+    <text x="580" y="315" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#e0e0e0">+8 seconds</text>
+    
+    <line x1="640" y1="305" x2="680" y2="305" stroke="#68d391" stroke-width="2" marker-end="url(#arrow-retry)"/>
+    <text x="660" y="300" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#68d391">SUCCESS</text>
+    
+    <!-- Final success -->
+    <rect x="690" y="280" width="100" height="50" rx="6" fill="#2d3748" stroke="#68d391" stroke-width="2"/>
+    <text x="740" y="300" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#68d391">Complete</text>
+    <text x="740" y="315" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#e0e0e0">✓ Success</text>
+  </g>
+  
+  <!-- Use Cases -->
+  <g>
+    <text x="450" y="380" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#e0e0e0">
+      Common Use Cases
+    </text>
+    
+    <!-- Email campaigns -->
+    <rect x="50" y="400" width="150" height="60" rx="6" fill="#1a202c" stroke="#e53e3e" stroke-width="1"/>
+    <text x="125" y="420" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#e53e3e">Email Campaigns</text>
+    <text x="60" y="435" font-family="Arial, sans-serif" font-size="9" fill="#e0e0e0">• Send welcome series</text>
+    <text x="60" y="450" font-family="Arial, sans-serif" font-size="9" fill="#e0e0e0">• Drip campaigns</text>
+    
+    <!-- Reports -->
+    <rect x="220" y="400" width="150" height="60" rx="6" fill="#1a202c" stroke="#f6e05e" stroke-width="1"/>
+    <text x="295" y="420" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#f6e05e">Reports</text>
+    <text x="230" y="435" font-family="Arial, sans-serif" font-size="9" fill="#e0e0e0">• Daily summaries</text>
+    <text x="230" y="450" font-family="Arial, sans-serif" font-size="9" fill="#e0e0e0">• Monthly analytics</text>
+    
+    <!-- Cleanup -->
+    <rect x="390" y="400" width="150" height="60" rx="6" fill="#1a202c" stroke="#4299e1" stroke-width="1"/>
+    <text x="465" y="420" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#4299e1">Cleanup Tasks</text>
+    <text x="400" y="435" font-family="Arial, sans-serif" font-size="9" fill="#e0e0e0">• Remove old files</text>
+    <text x="400" y="450" font-family="Arial, sans-serif" font-size="9" fill="#e0e0e0">• Archive data</text>
+    
+    <!-- Reminders -->
+    <rect x="560" y="400" width="150" height="60" rx="6" fill="#1a202c" stroke="#9f7aea" stroke-width="1"/>
+    <text x="635" y="420" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#9f7aea">Reminders</text>
+    <text x="570" y="435" font-family="Arial, sans-serif" font-size="9" fill="#e0e0e0">• Payment due</text>
+    <text x="570" y="450" font-family="Arial, sans-serif" font-size="9" fill="#e0e0e0">• Subscription renewal</text>
+  </g>
+</svg>

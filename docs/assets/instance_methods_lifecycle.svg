@@ -1,0 +1,137 @@
+<svg width="800" height="600" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="600" fill="transparent"/>
+  
+  <!-- Title -->
+  <text x="400" y="30" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#e0e0e0">
+    Instance Methods: Message Lifecycle Management
+  </text>
+  
+  <!-- Method Categories -->
+  <g>
+    <text x="400" y="70" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#ff9800">
+      Core Instance Methods
+    </text>
+    
+    <!-- Creation Methods -->
+    <rect x="50" y="100" width="160" height="120" rx="8" fill="#2d3748" stroke="#68d391" stroke-width="2"/>
+    <text x="130" y="125" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="#68d391">Creation and Setup</text>
+    <text x="60" y="145" font-family="monospace" font-size="10" fill="#e0e0e0">initialize(data={})</text>
+    <text x="60" y="160" font-family="monospace" font-size="10" fill="#e0e0e0">setup!</text>
+    <text x="60" y="175" font-family="monospace" font-size="10" fill="#e0e0e0">configure</text>
+    <text x="60" y="190" font-family="monospace" font-size="10" fill="#e0e0e0">validate!</text>
+    <text x="60" y="205" font-family="monospace" font-size="10" fill="#e0e0e0">prepare</text>
+    
+    <!-- Publishing Methods -->
+    <rect x="230" y="100" width="160" height="120" rx="8" fill="#2d3748" stroke="#4299e1" stroke-width="2"/>
+    <text x="310" y="125" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="#4299e1">Publishing</text>
+    <text x="240" y="145" font-family="monospace" font-size="10" fill="#e0e0e0">publish(action)</text>
+    <text x="240" y="160" font-family="monospace" font-size="10" fill="#e0e0e0">publish_at(time)</text>
+    <text x="240" y="175" font-family="monospace" font-size="10" fill="#e0e0e0">publish_in(delay)</text>
+    <text x="240" y="190" font-family="monospace" font-size="10" fill="#e0e0e0">schedule(cron)</text>
+    <text x="240" y="205" font-family="monospace" font-size="10" fill="#e0e0e0">broadcast</text>
+    
+    <!-- Processing Methods -->
+    <rect x="410" y="100" width="160" height="120" rx="8" fill="#2d3748" stroke="#9f7aea" stroke-width="2"/>
+    <text x="490" y="125" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="#9f7aea">Processing</text>
+    <text x="420" y="145" font-family="monospace" font-size="10" fill="#e0e0e0">process(action)</text>
+    <text x="420" y="160" font-family="monospace" font-size="10" fill="#e0e0e0">execute</text>
+    <text x="420" y="175" font-family="monospace" font-size="10" fill="#e0e0e0">perform</text>
+    <text x="420" y="190" font-family="monospace" font-size="10" fill="#e0e0e0">handle</text>
+    <text x="420" y="205" font-family="monospace" font-size="10" fill="#e0e0e0">run</text>
+    
+    <!-- State Methods -->
+    <rect x="590" y="100" width="160" height="120" rx="8" fill="#2d3748" stroke="#f6e05e" stroke-width="2"/>
+    <text x="670" y="125" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="#f6e05e">State and Utility</text>
+    <text x="600" y="145" font-family="monospace" font-size="10" fill="#e0e0e0">valid?</text>
+    <text x="600" y="160" font-family="monospace" font-size="10" fill="#e0e0e0">errors</text>
+    <text x="600" y="175" font-family="monospace" font-size="10" fill="#e0e0e0">to_h / to_hash</text>
+    <text x="600" y="190" font-family="monospace" font-size="10" fill="#e0e0e0">to_json</text>
+    <text x="600" y="205" font-family="monospace" font-size="10" fill="#e0e0e0">inspect</text>
+  </g>
+  
+  <!-- Lifecycle Flow -->
+  <g>
+    <text x="400" y="270" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#e0e0e0">
+      Message Instance Lifecycle
+    </text>
+    
+    <!-- Step 1: Initialize -->
+    <rect x="50" y="300" width="120" height="60" rx="6" fill="#1a202c" stroke="#68d391" stroke-width="2"/>
+    <text x="110" y="320" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#68d391">1. Initialize</text>
+    <text x="60" y="340" font-family="monospace" font-size="9" fill="#e0e0e0">msg = Message.new</text>
+    <text x="60" y="355" font-family="monospace" font-size="9" fill="#e0e0e0">msg.setup!</text>
+    
+    <!-- Step 2: Configure -->
+    <rect x="190" y="300" width="120" height="60" rx="6" fill="#1a202c" stroke="#4299e1" stroke-width="2"/>
+    <text x="250" y="320" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#4299e1">2. Configure</text>
+    <text x="200" y="340" font-family="monospace" font-size="9" fill="#e0e0e0">msg[:field] = value</text>
+    <text x="200" y="355" font-family="monospace" font-size="9" fill="#e0e0e0">msg.validate!</text>
+    
+    <!-- Step 3: Publish -->
+    <rect x="330" y="300" width="120" height="60" rx="6" fill="#1a202c" stroke="#9f7aea" stroke-width="2"/>
+    <text x="390" y="320" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#9f7aea">3. Publish</text>
+    <text x="340" y="340" font-family="monospace" font-size="9" fill="#e0e0e0">msg.publish('action')</text>
+    <text x="340" y="355" font-family="monospace" font-size="9" fill="#e0e0e0">Serialize and Send</text>
+    
+    <!-- Step 4: Process -->
+    <rect x="470" y="300" width="120" height="60" rx="6" fill="#1a202c" stroke="#f6e05e" stroke-width="2"/>
+    <text x="530" y="320" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#f6e05e">4. Process</text>
+    <text x="480" y="340" font-family="monospace" font-size="9" fill="#e0e0e0">msg.process('action')</text>
+    <text x="480" y="355" font-family="monospace" font-size="9" fill="#e0e0e0">Execute business logic</text>
+    
+    <!-- Step 5: Complete -->
+    <rect x="610" y="300" width="120" height="60" rx="6" fill="#1a202c" stroke="#e53e3e" stroke-width="2"/>
+    <text x="670" y="320" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#e53e3e">5. Complete</text>
+    <text x="620" y="340" font-family="monospace" font-size="9" fill="#e0e0e0">ACK/NACK</text>
+    <text x="620" y="355" font-family="monospace" font-size="9" fill="#e0e0e0">Cleanup</text>
+  </g>
+  
+  <!-- Method Details -->
+  <g>
+    <text x="400" y="410" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#e0e0e0">
+      Key Method Examples
+    </text>
+    
+    <!-- Publishing Example -->
+    <rect x="50" y="430" width="220" height="120" rx="6" fill="#2d3748" stroke="#4299e1" stroke-width="1"/>
+    <text x="160" y="450" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#4299e1">Publishing Methods</text>
+    <text x="60" y="470" font-family="monospace" font-size="10" fill="#e0e0e0"># Immediate</text>
+    <text x="60" y="485" font-family="monospace" font-size="10" fill="#e0e0e0">message.publish('process')</text>
+    <text x="60" y="505" font-family="monospace" font-size="10" fill="#e0e0e0"># Delayed</text>
+    <text x="60" y="520" font-family="monospace" font-size="10" fill="#e0e0e0">message.publish_in(5.minutes)</text>
+    <text x="60" y="540" font-family="monospace" font-size="10" fill="#e0e0e0"># Scheduled</text>
+    <text x="60" y="555" font-family="monospace" font-size="10" fill="#e0e0e0">message.schedule('0 9 * * 1')</text>
+    
+    <!-- Validation Example -->
+    <rect x="290" y="430" width="220" height="120" rx="6" fill="#2d3748" stroke="#68d391" stroke-width="1"/>
+    <text x="400" y="450" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#68d391">Validation Methods</text>
+    <text x="300" y="470" font-family="monospace" font-size="10" fill="#e0e0e0">if message.valid?</text>
+    <text x="310" y="485" font-family="monospace" font-size="10" fill="#e0e0e0">message.publish('process')</text>
+    <text x="300" y="500" font-family="monospace" font-size="10" fill="#e0e0e0">else</text>
+    <text x="310" y="515" font-family="monospace" font-size="10" fill="#e0e0e0">puts message.errors</text>
+    <text x="310" y="530" font-family="monospace" font-size="10" fill="#e0e0e0">handle_validation_error</text>
+    <text x="300" y="545" font-family="monospace" font-size="10" fill="#e0e0e0">end</text>
+    
+    <!-- Serialization Example -->
+    <rect x="530" y="430" width="220" height="120" rx="6" fill="#2d3748" stroke="#9f7aea" stroke-width="1"/>
+    <text x="640" y="450" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#9f7aea">Serialization Methods</text>
+    <text x="540" y="470" font-family="monospace" font-size="10" fill="#e0e0e0"># To Hash</text>
+    <text x="540" y="485" font-family="monospace" font-size="10" fill="#e0e0e0">hash_data = msg.to_h</text>
+    <text x="540" y="505" font-family="monospace" font-size="10" fill="#e0e0e0"># To JSON</text>
+    <text x="540" y="520" font-family="monospace" font-size="10" fill="#e0e0e0">json_data = msg.to_json</text>
+    <text x="540" y="540" font-family="monospace" font-size="10" fill="#e0e0e0"># Inspect</text>
+    <text x="540" y="555" font-family="monospace" font-size="10" fill="#e0e0e0">puts msg.inspect</text>
+  </g>
+  
+  <!-- Flow arrows -->
+  <defs>
+    <marker id="arrow-instance" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#ff9800"/>
+    </marker>
+  </defs>
+  
+  <line x1="170" y1="330" x2="190" y2="330" stroke="#ff9800" stroke-width="2" marker-end="url(#arrow-instance)"/>
+  <line x1="310" y1="330" x2="330" y2="330" stroke="#ff9800" stroke-width="2" marker-end="url(#arrow-instance)"/>
+  <line x1="450" y1="330" x2="470" y2="330" stroke="#ff9800" stroke-width="2" marker-end="url(#arrow-instance)"/>
+  <line x1="590" y1="330" x2="610" y2="330" stroke="#ff9800" stroke-width="2" marker-end="url(#arrow-instance)"/>
+</svg>

@@ -1,0 +1,87 @@
+<svg width="800" height="400" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background transparent -->
+  <rect width="800" height="400" fill="transparent"/>
+  
+  <!-- Title -->
+  <text x="400" y="30" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#e0e0e0">
+    BunnyFarm Message Flow
+  </text>
+  
+  <!-- Producer -->
+  <g>
+    <rect x="50" y="80" width="120" height="80" rx="10" fill="#2d3748" stroke="#4a5568" stroke-width="2"/>
+    <text x="110" y="110" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#e0e0e0">Producer</text>
+    <text x="110" y="130" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#cbd5e0">Ruby App</text>
+  </g>
+  
+  <!-- RabbitMQ -->
+  <g>
+    <rect x="340" y="60" width="120" height="120" rx="10" fill="#1a365d" stroke="#2b6cb0" stroke-width="2"/>
+    <text x="400" y="90" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#90cdf4">RabbitMQ</text>
+    <text x="400" y="110" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#bee3f8">Exchange</text>
+    <text x="400" y="125" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#bee3f8">Queue</text>
+    <!-- Rabbit icon -->
+    <ellipse cx="400" cy="145" rx="15" ry="10" fill="#90cdf4"/>
+    <ellipse cx="395" cy="140" rx="3" ry="4" fill="#90cdf4"/>
+    <ellipse cx="405" cy="140" rx="3" ry="4" fill="#90cdf4"/>
+  </g>
+  
+  <!-- Consumer -->
+  <g>
+    <rect x="630" y="80" width="120" height="80" rx="10" fill="#2d3748" stroke="#4a5568" stroke-width="2"/>
+    <text x="690" y="110" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#e0e0e0">Consumer</text>
+    <text x="690" y="130" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#cbd5e0">Worker</text>
+  </g>
+  
+  <!-- Arrows -->
+  <!-- Producer to RabbitMQ -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#68d391"/>
+    </marker>
+  </defs>
+  
+  <line x1="170" y1="120" x2="340" y2="120" stroke="#68d391" stroke-width="2" marker-end="url(#arrowhead)"/>
+  <text x="255" y="115" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#68d391">publish</text>
+  
+  <!-- RabbitMQ to Consumer -->
+  <line x1="460" y1="120" x2="630" y2="120" stroke="#68d391" stroke-width="2" marker-end="url(#arrowhead)"/>
+  <text x="545" y="115" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#68d391">deliver</text>
+  
+  <!-- Message flow steps -->
+  <g>
+    <text x="50" y="220" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#e0e0e0">Message Flow Steps:</text>
+    
+    <g>
+      <circle cx="70" cy="250" r="8" fill="#68d391"/>
+      <text x="82" y="255" font-family="Arial, sans-serif" font-size="12" fill="#e0e0e0">1. Create message instance with data</text>
+    </g>
+    
+    <g>
+      <circle cx="70" cy="275" r="8" fill="#68d391"/>
+      <text x="82" y="280" font-family="Arial, sans-serif" font-size="12" fill="#e0e0e0">2. Call msg.publish('action_name')</text>
+    </g>
+    
+    <g>
+      <circle cx="70" cy="300" r="8" fill="#68d391"/>
+      <text x="82" y="305" font-family="Arial, sans-serif" font-size="12" fill="#e0e0e0">3. Message sent with routing key: ClassName.action</text>
+    </g>
+    
+    <g>
+      <circle cx="70" cy="325" r="8" fill="#68d391"/>
+      <text x="82" y="330" font-family="Arial, sans-serif" font-size="12" fill="#e0e0e0">4. Consumer receives and instantiates message class</text>
+    </g>
+    
+    <g>
+      <circle cx="70" cy="350" r="8" fill="#68d391"/>
+      <text x="82" y="355" font-family="Arial, sans-serif" font-size="12" fill="#e0e0e0">5. Action method called automatically, message ACK/NACK sent</text>
+    </g>
+  </g>
+  
+  <!-- Routing key example -->
+  <g>
+    <rect x="200" y="200" width="400" height="40" rx="5" fill="#2d3748" stroke="#4a5568" stroke-width="1"/>
+    <text x="400" y="215" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#9ca3af">Routing Key Format:</text>
+    <text x="400" y="230" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#f59e0b">MessageClassName.action_name</text>
+  </g>
+</svg>

@@ -33,7 +33,7 @@ module BunnyFarm
                           ERB.new(
                             File.read(
                               File.join(  CONFIG.config_dir,
-                                          CONFIG.bunny_file))).result))[CONFIG.env]
+                                          CONFIG.bunny_file))).result, aliases: true))[CONFIG.env]
 
       default :app_id, CONFIG.bunny.app_name
 
@@ -79,12 +79,12 @@ module BunnyFarm
     end
 
     def set(key, value)
-      STDERR.puts "Setting #{key} ..." if $debug
+      STDERR.puts "Setting #{key} ..." if defined?($debug) && $debug
       CONFIG[key] = value
     end
 
     def method_missing(method_sym, *args, &block)
-      STDERR.puts "METHOD-MISSING: #{method_sym}(#{args.join(', ')})" if $debug
+      STDERR.puts "METHOD-MISSING: #{method_sym}(#{args.join(', ')})" if defined?($debug) && $debug
       set(method_sym, args.first)
     end
 
@@ -103,7 +103,7 @@ module BunnyFarm
       CONFIG.run.on_delivery do |info, metadata, payload|
         Thread.new do
           klass   = Kernel.const_get info.routing_key.split('.').first
-          status  = klass.new(payload, info, metadata)
+          klass.new(payload, info, metadata)
         end
       end # BunnyFarm.run.on_delivery do
 

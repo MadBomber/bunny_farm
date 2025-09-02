@@ -1,0 +1,70 @@
+<svg width="800" height="600" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="600" fill="transparent"/>
+  
+  <!-- Title -->
+  <text x="400" y="30" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#e0e0e0">
+    BunnyFarm Configuration Hierarchy
+  </text>
+  
+  <!-- Configuration Sources -->
+  <g>
+    <text x="400" y="70" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#ff9800">
+      Configuration Priority (High to Low)
+    </text>
+    
+    <!-- 1. Code Configuration -->
+    <rect x="50" y="100" width="700" height="80" rx="8" fill="#2d3748" stroke="#e53e3e" stroke-width="3"/>
+    <text x="70" y="125" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#e53e3e">1. Code Configuration (Highest Priority)</text>
+    <text x="70" y="145" font-family="monospace" font-size="12" fill="#e0e0e0">BunnyFarm.configure do |config|</text>
+    <text x="80" y="160" font-family="monospace" font-size="12" fill="#e0e0e0">config.rabbitmq_url = "amqp://localhost:5672"</text>
+    <text x="70" y="175" font-family="monospace" font-size="12" fill="#e0e0e0">end</text>
+    
+    <!-- 2. Environment Variables -->
+    <rect x="50" y="200" width="700" height="80" rx="8" fill="#2d3748" stroke="#f6e05e" stroke-width="2"/>
+    <text x="70" y="225" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#f6e05e">2. Environment Variables</text>
+    <text x="70" y="245" font-family="monospace" font-size="12" fill="#e0e0e0">RABBITMQ_URL="amqp://prod-rabbit:5672"</text>
+    <text x="70" y="260" font-family="monospace" font-size="12" fill="#e0e0e0">BUNNY_FARM_EXCHANGE="production_exchange"</text>
+    <text x="70" y="275" font-family="monospace" font-size="12" fill="#e0e0e0">BUNNY_FARM_RETRY_ATTEMPTS=5</text>
+    
+    <!-- 3. YAML Files -->
+    <rect x="50" y="300" width="700" height="80" rx="8" fill="#2d3748" stroke="#4299e1" stroke-width="2"/>
+    <text x="70" y="325" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#4299e1">3. YAML Configuration Files</text>
+    <text x="70" y="345" font-family="monospace" font-size="12" fill="#e0e0e0">config/bunny_farm.yml</text>
+    <text x="70" y="360" font-family="monospace" font-size="12" fill="#e0e0e0">config/environments/production.yml</text>
+    <text x="70" y="375" font-family="monospace" font-size="12" fill="#e0e0e0">~/.bunny_farm/config.yml</text>
+    
+    <!-- 4. Defaults -->
+    <rect x="50" y="400" width="700" height="80" rx="8" fill="#2d3748" stroke="#68d391" stroke-width="1"/>
+    <text x="70" y="425" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#68d391">4. Framework Defaults (Lowest Priority)</text>
+    <text x="70" y="445" font-family="monospace" font-size="12" fill="#e0e0e0">rabbitmq_url: "amqp://localhost:5672"</text>
+    <text x="70" y="460" font-family="monospace" font-size="12" fill="#e0e0e0">exchange_name: "bunny_farm"</text>
+    <text x="70" y="475" font-family="monospace" font-size="12" fill="#e0e0e0">retry_attempts: 3</text>
+  </g>
+  
+  <!-- Configuration Categories -->
+  <g>
+    <text x="400" y="530" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#e0e0e0">
+      Configuration Categories
+    </text>
+    
+    <!-- RabbitMQ -->
+    <rect x="50" y="550" width="140" height="40" rx="6" fill="#1a202c" stroke="#9f7aea" stroke-width="1"/>
+    <text x="120" y="570" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#9f7aea">RabbitMQ</text>
+    <text x="120" y="585" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#e0e0e0">Connection and Auth</text>
+    
+    <!-- Routing -->
+    <rect x="210" y="550" width="140" height="40" rx="6" fill="#1a202c" stroke="#68d391" stroke-width="1"/>
+    <text x="280" y="570" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#68d391">Routing</text>
+    <text x="280" y="585" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#e0e0e0">Exchange and Queues</text>
+    
+    <!-- Retry Logic -->
+    <rect x="370" y="550" width="140" height="40" rx="6" fill="#1a202c" stroke="#4299e1" stroke-width="1"/>
+    <text x="440" y="570" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#4299e1">Retry Logic</text>
+    <text x="440" y="585" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#e0e0e0">Attempts and Backoff</text>
+    
+    <!-- Logging -->
+    <rect x="530" y="550" width="140" height="40" rx="6" fill="#1a202c" stroke="#f6e05e" stroke-width="1"/>
+    <text x="600" y="570" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#f6e05e">Logging</text>
+    <text x="600" y="585" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#e0e0e0">Level and Format</text>
+  </g>
+</svg>

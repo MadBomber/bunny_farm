@@ -1,0 +1,113 @@
+<svg width="800" height="600" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="600" fill="transparent"/>
+  
+  <!-- Title -->
+  <text x="400" y="30" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#e0e0e0">
+    Message Encapsulation: Data + Behavior
+  </text>
+  
+  <!-- Traditional Job Queue (Left Side) -->
+  <g>
+    <text x="200" y="70" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#e53e3e">
+      Traditional Job Queue
+    </text>
+    
+    <!-- Data structure -->
+    <rect x="50" y="90" width="300" height="80" rx="8" fill="#2d3748" stroke="#e53e3e" stroke-width="2"/>
+    <text x="200" y="115" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#e53e3e">Simple Data Structure</text>
+    <text x="60" y="135" font-family="monospace" font-size="11" fill="#e0e0e0">job_data = {</text>
+    <text x="70" y="150" font-family="monospace" font-size="11" fill="#e0e0e0">action: "process_order",</text>
+    <text x="70" y="165" font-family="monospace" font-size="11" fill="#e0e0e0">order_id: 12345</text>
+    <text x="60" y="180" font-family="monospace" font-size="11" fill="#e0e0e0">}</text>
+    
+    <!-- Generic Worker -->
+    <rect x="50" y="190" width="300" height="100" rx="8" fill="#2d3748" stroke="#e53e3e" stroke-width="2"/>
+    <text x="200" y="215" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#e53e3e">Generic Worker Process</text>
+    <text x="60" y="235" font-family="monospace" font-size="11" fill="#e0e0e0">def handle_job(job_data)</text>
+    <text x="70" y="250" font-family="monospace" font-size="11" fill="#e0e0e0">case job_data[:action]</text>
+    <text x="70" y="265" font-family="monospace" font-size="11" fill="#e0e0e0">when "process_order"</text>
+    <text x="80" y="280" font-family="monospace" font-size="11" fill="#e0e0e0">process_order_logic</text>
+    <text x="60" y="295" font-family="monospace" font-size="11" fill="#e0e0e0">end</text>
+    
+    <text x="200" y="320" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#e53e3e">❌ Data and behavior are separated</text>
+    <text x="200" y="335" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#e53e3e">❌ Hard to test individual job types</text>
+    <text x="200" y="350" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#e53e3e">❌ Worker becomes complex with many job types</text>
+  </g>
+  
+  <!-- VS Arrow -->
+  <text x="400" y="210" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#ff9800">VS</text>
+  
+  <!-- BunnyFarm Message (Right Side) -->
+  <g>
+    <text x="600" y="70" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#68d391">
+      BunnyFarm Message
+    </text>
+    
+    <!-- Message Class -->
+    <rect x="450" y="90" width="300" height="180" rx="8" fill="#2d3748" stroke="#68d391" stroke-width="2"/>
+    <text x="600" y="115" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#68d391">Message Class (Data + Behavior)</text>
+    
+    <!-- Data definition -->
+    <text x="460" y="135" font-family="monospace" font-size="11" fill="#4299e1">class OrderMessage &lt; BunnyFarm::Message</text>
+    <text x="470" y="150" font-family="monospace" font-size="11" fill="#9ca3af"># Data structure</text>
+    <text x="470" y="165" font-family="monospace" font-size="11" fill="#68d391">fields</text>
+    <text x="510" y="165" font-family="monospace" font-size="11" fill="#e0e0e0">:order_id, :customer, :items</text>
+    
+    <!-- Actions definition -->
+    <text x="470" y="185" font-family="monospace" font-size="11" fill="#9ca3af"># Behavior definition</text>
+    <text x="470" y="200" font-family="monospace" font-size="11" fill="#f6e05e">actions</text>
+    <text x="520" y="200" font-family="monospace" font-size="11" fill="#e0e0e0">:validate, :process, :ship</text>
+    
+    <!-- Method implementation -->
+    <text x="470" y="220" font-family="monospace" font-size="11" fill="#9ca3af"># Business logic</text>
+    <text x="470" y="235" font-family="monospace" font-size="11" fill="#f6e05e">def process</text>
+    <text x="480" y="250" font-family="monospace" font-size="11" fill="#e0e0e0">validate_order</text>
+    <text x="480" y="265" font-family="monospace" font-size="11" fill="#e0e0e0">charge_payment</text>
+    <text x="470" y="280" font-family="monospace" font-size="11" fill="#f6e05e">end</text>
+    <text x="460" y="295" font-family="monospace" font-size="11" fill="#4299e1">end</text>
+    
+    <text x="600" y="320" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#68d391">✅ Data and behavior encapsulated together</text>
+    <text x="600" y="335" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#68d391">✅ Easy to unit test each message type</text>
+    <text x="600" y="350" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#68d391">✅ Self-contained and discoverable</text>
+  </g>
+  
+  <!-- Benefits Section -->
+  <g>
+    <text x="400" y="390" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#e0e0e0">
+      Benefits of Message-Centric Design
+    </text>
+    
+    <!-- Benefit boxes -->
+    <rect x="50" y="410" width="160" height="120" rx="8" fill="#2d3748" stroke="#68d391" stroke-width="1"/>
+    <text x="130" y="435" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="#68d391">Encapsulation</text>
+    <text x="60" y="455" font-family="Arial, sans-serif" font-size="10" fill="#e0e0e0">• Related data and behavior</text>
+    <text x="70" y="470" font-family="Arial, sans-serif" font-size="10" fill="#e0e0e0">stay together</text>
+    <text x="60" y="485" font-family="Arial, sans-serif" font-size="10" fill="#e0e0e0">• Single responsibility</text>
+    <text x="60" y="500" font-family="Arial, sans-serif" font-size="10" fill="#e0e0e0">• Clear boundaries</text>
+    <text x="60" y="515" font-family="Arial, sans-serif" font-size="10" fill="#e0e0e0">• Reduced coupling</text>
+    
+    <rect x="230" y="410" width="160" height="120" rx="8" fill="#2d3748" stroke="#4299e1" stroke-width="1"/>
+    <text x="310" y="435" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="#4299e1">Discoverability</text>
+    <text x="240" y="455" font-family="Arial, sans-serif" font-size="10" fill="#e0e0e0">• Easy to understand what</text>
+    <text x="250" y="470" font-family="Arial, sans-serif" font-size="10" fill="#e0e0e0">a message can do</text>
+    <text x="240" y="485" font-family="Arial, sans-serif" font-size="10" fill="#e0e0e0">• Self-documenting API</text>
+    <text x="240" y="500" font-family="Arial, sans-serif" font-size="10" fill="#e0e0e0">• Clear interface</text>
+    <text x="240" y="515" font-family="Arial, sans-serif" font-size="10" fill="#e0e0e0">• Introspectable</text>
+    
+    <rect x="410" y="410" width="160" height="120" rx="8" fill="#2d3748" stroke="#9f7aea" stroke-width="1"/>
+    <text x="490" y="435" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="#9f7aea">Testability</text>
+    <text x="420" y="455" font-family="Arial, sans-serif" font-size="10" fill="#e0e0e0">• Individual message types</text>
+    <text x="430" y="470" font-family="Arial, sans-serif" font-size="10" fill="#e0e0e0">can be unit tested</text>
+    <text x="420" y="485" font-family="Arial, sans-serif" font-size="10" fill="#e0e0e0">• Mock dependencies easily</text>
+    <text x="420" y="500" font-family="Arial, sans-serif" font-size="10" fill="#e0e0e0">• Test business logic</text>
+    <text x="430" y="515" font-family="Arial, sans-serif" font-size="10" fill="#e0e0e0">in isolation</text>
+    
+    <rect x="590" y="410" width="160" height="120" rx="8" fill="#2d3748" stroke="#f6e05e" stroke-width="1"/>
+    <text x="670" y="435" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="#f6e05e">Type Safety</text>
+    <text x="600" y="455" font-family="Arial, sans-serif" font-size="10" fill="#e0e0e0">• Ruby class system</text>
+    <text x="610" y="470" font-family="Arial, sans-serif" font-size="10" fill="#e0e0e0">provides structure</text>
+    <text x="600" y="485" font-family="Arial, sans-serif" font-size="10" fill="#e0e0e0">• Field validation</text>
+    <text x="600" y="500" font-family="Arial, sans-serif" font-size="10" fill="#e0e0e0">• Method signatures</text>
+    <text x="600" y="515" font-family="Arial, sans-serif" font-size="10" fill="#e0e0e0">• IDE support</text>
+  </g>
+</svg>

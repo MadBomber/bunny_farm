@@ -2,6 +2,9 @@ require 'minitest_helper'
 
 class TestBunnyFarm < Minitest::Test
   def setup
+    # Ensure we have a stub exchange for publishing
+    BunnyFarm::CONFIG.exchange = Stub.new unless BunnyFarm::CONFIG.exchange
+    
     @test_hash = {
       field1: 'hello',
       field2: 'world',

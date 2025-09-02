@@ -2,16 +2,18 @@
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
+require 'bunny_farm/version'
+
 Gem::Specification.new do |spec|
   spec.name          = "bunny_farm"
-  spec.version       = '0.1.1'
+  spec.version       = BunnyFarm::VERSION
   spec.authors       = ["Dewayne VanHoozer"]
   spec.email         = ["dvanhoozer@gmail.com"]
 
-  spec.summary       = %q{ My opinion on how intelligent messages could be handled. }
-  spec.description   = %q{ Everyone has an opinion. This is mine. }
+  spec.summary       = %q{ Simple AMQP/JSON background job manager for RabbitMQ }
+  spec.description   = %q{ A lightweight Ruby gem for managing background jobs using RabbitMQ. Messages are encapsulated as classes with JSON serialization and routing keys in the format MessageClassName.action for simple, organized job processing. }
   spec.homepage      = "https://github.com/MadBomber/bunny_farm"
-  spec.license       = "You want it?  Its yours!"
+  spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
   spec.require_paths = ["lib"]

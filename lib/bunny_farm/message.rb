@@ -78,8 +78,10 @@ module BunnyFarm
 
         if successful?
           self.send(action_request, params)
-          CONFIG.run.channel.acknowledge( delivery_info.delivery_tag, false ) if success?
-          CONFIG.run.channel.reject( delivery_info.delivery_tag )             if failure? 
+          if CONFIG.run && CONFIG.run.channel
+            CONFIG.run.channel.acknowledge( delivery_info.delivery_tag, false ) if success?
+            CONFIG.run.channel.reject( delivery_info.delivery_tag )             if failure? 
+          end
         end
       end # unless delivery_info.nil?
 
@@ -100,11 +102,15 @@ module BunnyFarm
       @payload = to_json
 
       begin
-        CONFIG.exchange.publish(
-          @payload,
-          routing_key: "#{self.class}.#{action}",
-          app_id: CONFIG.app_id
-        )
+        if CONFIG.exchange
+          CONFIG.exchange.publish(
+            @payload,
+            routing_key: "#{self.class}.#{action}",
+            app_id: CONFIG.app_id
+          )
+        else
+          failure("undefined method 'publish' for nil")
+        end
       rescue Exception => e
         failure(e)
       end
