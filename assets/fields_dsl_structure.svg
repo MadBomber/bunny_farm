@@ -1,0 +1,89 @@
+<svg width="800" height="500" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="500" fill="transparent"/>
+  
+  <!-- Title -->
+  <text x="400" y="30" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#e0e0e0">
+    Fields DSL: Message Data Structure
+  </text>
+  
+  <!-- Basic Field Definition -->
+  <g>
+    <text x="400" y="70" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#68d391">
+      Field Definition Syntax
+    </text>
+    
+    <rect x="50" y="90" width="700" height="120" rx="8" fill="#2d3748" stroke="#68d391" stroke-width="2"/>
+    <text x="400" y="115" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#68d391">Message Class Example</text>
+    
+    <text x="70" y="140" font-family="monospace" font-size="12" fill="#4299e1">class OrderMessage &lt; BunnyFarm::Message</text>
+    <text x="80" y="160" font-family="monospace" font-size="12" fill="#68d391">fields</text>
+    <text x="140" y="160" font-family="monospace" font-size="12" fill="#e0e0e0">:order_id, :customer_id, :total_amount</text>
+    <text x="80" y="180" font-family="monospace" font-size="12" fill="#68d391">field</text>
+    <text x="130" y="180" font-family="monospace" font-size="12" fill="#e0e0e0">:items, default: []</text>
+    <text x="80" y="200" font-family="monospace" font-size="12" fill="#68d391">field</text>
+    <text x="130" y="200" font-family="monospace" font-size="12" fill="#e0e0e0">:status, default: 'pending'</text>
+    <text x="70" y="220" font-family="monospace" font-size="12" fill="#4299e1">end</text>
+  </g>
+  
+  <!-- Field Types -->
+  <g>
+    <text x="400" y="260" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#e0e0e0">
+      Supported Field Types and Options
+    </text>
+    
+    <!-- Simple Fields -->
+    <rect x="50" y="280" width="160" height="120" rx="6" fill="#2d3748" stroke="#4299e1" stroke-width="1"/>
+    <text x="130" y="305" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="#4299e1">Simple Fields</text>
+    <text x="60" y="325" font-family="monospace" font-size="10" fill="#e0e0e0">:name          # String</text>
+    <text x="60" y="340" font-family="monospace" font-size="10" fill="#e0e0e0">:age           # Integer</text>
+    <text x="60" y="355" font-family="monospace" font-size="10" fill="#e0e0e0">:active        # Boolean</text>
+    <text x="60" y="370" font-family="monospace" font-size="10" fill="#e0e0e0">:price         # Float</text>
+    <text x="60" y="385" font-family="monospace" font-size="10" fill="#e0e0e0">:created_at    # Time</text>
+    
+    <!-- Complex Fields -->
+    <rect x="230" y="280" width="160" height="120" rx="6" fill="#2d3748" stroke="#9f7aea" stroke-width="1"/>
+    <text x="310" y="305" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="#9f7aea">Complex Fields</text>
+    <text x="240" y="325" font-family="monospace" font-size="10" fill="#e0e0e0">:items         # Array</text>
+    <text x="240" y="340" font-family="monospace" font-size="10" fill="#e0e0e0">:metadata      # Hash</text>
+    <text x="240" y="355" font-family="monospace" font-size="10" fill="#e0e0e0">:customer      # Object</text>
+    <text x="240" y="370" font-family="monospace" font-size="10" fill="#e0e0e0">:tags          # Array</text>
+    <text x="240" y="385" font-family="monospace" font-size="10" fill="#e0e0e0">:settings      # Hash</text>
+    
+    <!-- Field Options -->
+    <rect x="410" y="280" width="160" height="120" rx="6" fill="#2d3748" stroke="#f6e05e" stroke-width="1"/>
+    <text x="490" y="305" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="#f6e05e">Field Options</text>
+    <text x="420" y="325" font-family="monospace" font-size="10" fill="#e0e0e0">default: value</text>
+    <text x="420" y="340" font-family="monospace" font-size="10" fill="#e0e0e0">required: true</text>
+    <text x="420" y="355" font-family="monospace" font-size="10" fill="#e0e0e0">validate: proc</text>
+    <text x="420" y="370" font-family="monospace" font-size="10" fill="#e0e0e0">type: String</text>
+    <text x="420" y="385" font-family="monospace" font-size="10" fill="#e0e0e0">alias: :alt_name</text>
+    
+    <!-- Access Patterns -->
+    <rect x="590" y="280" width="160" height="120" rx="6" fill="#2d3748" stroke="#e53e3e" stroke-width="1"/>
+    <text x="670" y="305" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="#e53e3e">Access Patterns</text>
+    <text x="600" y="325" font-family="monospace" font-size="10" fill="#e0e0e0">msg[:field_name]</text>
+    <text x="600" y="340" font-family="monospace" font-size="10" fill="#e0e0e0">msg.field_name</text>
+    <text x="600" y="355" font-family="monospace" font-size="10" fill="#e0e0e0">msg.field_name=</text>
+    <text x="600" y="370" font-family="monospace" font-size="10" fill="#e0e0e0">msg.fields</text>
+    <text x="600" y="385" font-family="monospace" font-size="10" fill="#e0e0e0">msg.to_h</text>
+  </g>
+  
+  <!-- Usage Example -->
+  <g>
+    <text x="400" y="440" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#e0e0e0">
+      Usage Example
+    </text>
+    
+    <rect x="50" y="460" width="340" height="70" rx="6" fill="#1a202c" stroke="#68d391" stroke-width="1"/>
+    <text x="220" y="480" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#68d391">Creating and Setting Fields</text>
+    <text x="60" y="500" font-family="monospace" font-size="10" fill="#e0e0e0">message = OrderMessage.new</text>
+    <text x="60" y="515" font-family="monospace" font-size="10" fill="#e0e0e0">message[:order_id] = 12345</text>
+    <text x="60" y="530" font-family="monospace" font-size="10" fill="#e0e0e0">message.customer_id = "cust_456"</text>
+    
+    <rect x="410" y="460" width="340" height="70" rx="6" fill="#1a202c" stroke="#4299e1" stroke-width="1"/>
+    <text x="580" y="480" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#4299e1">Reading and Validation</text>
+    <text x="420" y="500" font-family="monospace" font-size="10" fill="#e0e0e0">puts message[:order_id]  # 12345</text>
+    <text x="420" y="515" font-family="monospace" font-size="10" fill="#e0e0e0">puts message.valid?      # true/false</text>
+    <text x="420" y="530" font-family="monospace" font-size="10" fill="#e0e0e0">puts message.errors      # validation errors</text>
+  </g>
+</svg>

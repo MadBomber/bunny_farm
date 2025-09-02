@@ -1,0 +1,183 @@
+<svg width="1000" height="800" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1000" height="800" fill="transparent"/>
+  
+  <!-- Title -->
+  <text x="500" y="30" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#e0e0e0">
+    Workflow Support: Building Complex Multi-Step Processes
+  </text>
+  
+  <!-- Sequential Workflow -->
+  <g>
+    <text x="200" y="70" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#68d391">
+      Sequential Workflow
+    </text>
+    
+    <rect x="50" y="90" width="120" height="60" rx="8" fill="#2d3748" stroke="#68d391" stroke-width="2"/>
+    <text x="110" y="115" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#68d391">1. Validate</text>
+    <text x="110" y="135" text-anchor="middle" font-family="monospace" font-size="10" fill="#e0e0e0">validate_order</text>
+    
+    <rect x="190" y="90" width="120" height="60" rx="8" fill="#2d3748" stroke="#68d391" stroke-width="2"/>
+    <text x="250" y="115" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#68d391">2. Payment</text>
+    <text x="250" y="135" text-anchor="middle" font-family="monospace" font-size="10" fill="#e0e0e0">process_payment</text>
+    
+    <rect x="330" y="90" width="120" height="60" rx="8" fill="#2d3748" stroke="#68d391" stroke-width="2"/>
+    <text x="390" y="115" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#68d391">3. Fulfill</text>
+    <text x="390" y="135" text-anchor="middle" font-family="monospace" font-size="10" fill="#e0e0e0">fulfill_order</text>
+    
+    <rect x="470" y="90" width="120" height="60" rx="8" fill="#2d3748" stroke="#68d391" stroke-width="2"/>
+    <text x="530" y="115" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#68d391">4. Ship</text>
+    <text x="530" y="135" text-anchor="middle" font-family="monospace" font-size="10" fill="#e0e0e0">ship_order</text>
+    
+    <!-- Arrows -->
+    <defs>
+      <marker id="arrow-workflow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+        <polygon points="0 0, 10 3.5, 0 7" fill="#68d391"/>
+      </marker>
+      <marker id="arrow-conditional" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+        <polygon points="0 0, 10 3.5, 0 7" fill="#f6e05e"/>
+      </marker>
+      <marker id="arrow-parallel" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+        <polygon points="0 0, 10 3.5, 0 7" fill="#9f7aea"/>
+      </marker>
+    </defs>
+    
+    <line x1="170" y1="120" x2="190" y2="120" stroke="#68d391" stroke-width="2" marker-end="url(#arrow-workflow)"/>
+    <line x1="310" y1="120" x2="330" y2="120" stroke="#68d391" stroke-width="2" marker-end="url(#arrow-workflow)"/>
+    <line x1="450" y1="120" x2="470" y2="120" stroke="#68d391" stroke-width="2" marker-end="url(#arrow-workflow)"/>
+    
+    <!-- Code example -->
+    <rect x="50" y="170" width="540" height="120" rx="8" fill="#1a202c" stroke="#4a5568" stroke-width="1"/>
+    <text x="60" y="190" font-family="monospace" font-size="11" fill="#68d391">def start_order</text>
+    <text x="70" y="205" font-family="monospace" font-size="11" fill="#e0e0e0">self.class.new(@items).publish('validate')</text>
+    <text x="70" y="220" font-family="monospace" font-size="11" fill="#68d391">success!</text>
+    <text x="60" y="235" font-family="monospace" font-size="11" fill="#68d391">end</text>
+    <text x="250" y="190" font-family="monospace" font-size="11" fill="#68d391">def validate</text>
+    <text x="260" y="205" font-family="monospace" font-size="11" fill="#e0e0e0">validate_data</text>
+    <text x="260" y="220" font-family="monospace" font-size="11" fill="#e0e0e0">return unless successful?</text>
+    <text x="260" y="235" font-family="monospace" font-size="11" fill="#e0e0e0">self.class.new(@items).publish('process_payment')</text>
+    <text x="60" y="250" font-family="monospace" font-size="11" fill="#68d391">end</text>
+    <text x="250" y="265" font-family="monospace" font-size="11" fill="#9ca3af"># Each step triggers the next step</text>
+    <text x="250" y="280" font-family="monospace" font-size="11" fill="#9ca3af"># Chain continues until completion or failure</text>
+  </g>
+  
+  <!-- Conditional Workflow -->
+  <g>
+    <text x="200" y="330" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#f6e05e">
+      Conditional Workflow
+    </text>
+    
+    <rect x="110" y="350" width="120" height="60" rx="8" fill="#2d3748" stroke="#f6e05e" stroke-width="2"/>
+    <text x="170" y="375" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#f6e05e">Validate Order</text>
+    <text x="170" y="395" text-anchor="middle" font-family="monospace" font-size="10" fill="#e0e0e0">validate_order</text>
+    
+    <!-- Decision diamond -->
+    <polygon points="320,360 350,380 320,400 290,380" fill="#2d3748" stroke="#f6e05e" stroke-width="2"/>
+    <text x="320" y="375" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#f6e05e">Needs</text>
+    <text x="320" y="390" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#f6e05e">Approval?</text>
+    
+    <!-- Approval path -->
+    <rect x="390" y="320" width="120" height="50" rx="8" fill="#2d3748" stroke="#e53e3e" stroke-width="2"/>
+    <text x="450" y="340" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#e53e3e">Manual Review</text>
+    <text x="450" y="355" text-anchor="middle" font-family="monospace" font-size="10" fill="#e0e0e0">request_approval</text>
+    
+    <!-- Auto process path -->
+    <rect x="390" y="390" width="120" height="50" rx="8" fill="#2d3748" stroke="#68d391" stroke-width="2"/>
+    <text x="450" y="410" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#68d391">Auto Process</text>
+    <text x="450" y="425" text-anchor="middle" font-family="monospace" font-size="10" fill="#e0e0e0">auto_process</text>
+    
+    <!-- Arrows -->
+    <line x1="230" y1="380" x2="290" y2="380" stroke="#f6e05e" stroke-width="2" marker-end="url(#arrow-conditional)"/>
+    <line x1="350" y1="370" x2="390" y2="345" stroke="#e53e3e" stroke-width="2" marker-end="url(#arrow-conditional)"/>
+    <line x1="350" y1="390" x2="390" y2="415" stroke="#68d391" stroke-width="2" marker-end="url(#arrow-conditional)"/>
+    
+    <text x="365" y="365" font-family="Arial, sans-serif" font-size="10" fill="#e53e3e">YES</text>
+    <text x="365" y="405" font-family="Arial, sans-serif" font-size="10" fill="#68d391">NO</text>
+    
+    <!-- Code example -->
+    <rect x="50" y="460" width="540" height="80" rx="8" fill="#1a202c" stroke="#4a5568" stroke-width="1"/>
+    <text x="60" y="480" font-family="monospace" font-size="11" fill="#f6e05e">def process_order</text>
+    <text x="70" y="495" font-family="monospace" font-size="11" fill="#e0e0e0">if @items[:requires_approval]</text>
+    <text x="80" y="510" font-family="monospace" font-size="11" fill="#e0e0e0">self.class.new(@items).publish('request_approval')</text>
+    <text x="70" y="525" font-family="monospace" font-size="11" fill="#e0e0e0">else</text>
+    <text x="80" y="540" font-family="monospace" font-size="11" fill="#e0e0e0">self.class.new(@items).publish('auto_process')</text>
+    <text x="60" y="555" font-family="monospace" font-size="11" fill="#f6e05e">end</text>
+  </g>
+  
+  <!-- Parallel Workflow -->
+  <g>
+    <text x="750" y="70" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#9f7aea">
+      Parallel Workflow
+    </text>
+    
+    <rect x="690" y="90" width="120" height="60" rx="8" fill="#2d3748" stroke="#9f7aea" stroke-width="2"/>
+    <text x="750" y="115" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#9f7aea">Start Process</text>
+    <text x="750" y="135" text-anchor="middle" font-family="monospace" font-size="10" fill="#e0e0e0">start_parallel</text>
+    
+    <!-- Parallel operations -->
+    <rect x="600" y="180" width="100" height="50" rx="8" fill="#2d3748" stroke="#68d391" stroke-width="2"/>
+    <text x="650" y="200" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#68d391">Reserve</text>
+    <text x="650" y="215" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#68d391">Inventory</text>
+    
+    <rect x="720" y="180" width="100" height="50" rx="8" fill="#2d3748" stroke="#4299e1" stroke-width="2"/>
+    <text x="770" y="200" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#4299e1">Authorize</text>
+    <text x="770" y="215" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#4299e1">Payment</text>
+    
+    <rect x="840" y="180" width="100" height="50" rx="8" fill="#2d3748" stroke="#f6e05e" stroke-width="2"/>
+    <text x="890" y="200" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#f6e05e">Calculate</text>
+    <text x="890" y="215" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#f6e05e">Shipping</text>
+    
+    <!-- Convergence -->
+    <rect x="720" y="260" width="100" height="50" rx="8" fill="#2d3748" stroke="#e53e3e" stroke-width="2"/>
+    <text x="770" y="280" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#e53e3e">Complete</text>
+    <text x="770" y="295" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#e53e3e">Order</text>
+    
+    <!-- Arrows -->
+    <line x1="720" y1="150" x2="650" y2="180" stroke="#9f7aea" stroke-width="2" marker-end="url(#arrow-parallel)"/>
+    <line x1="750" y1="150" x2="770" y2="180" stroke="#9f7aea" stroke-width="2" marker-end="url(#arrow-parallel)"/>
+    <line x1="780" y1="150" x2="890" y2="180" stroke="#9f7aea" stroke-width="2" marker-end="url(#arrow-parallel)"/>
+    
+    <line x1="650" y1="230" x2="720" y2="270" stroke="#9f7aea" stroke-width="2" marker-end="url(#arrow-parallel)"/>
+    <line x1="770" y1="230" x2="770" y2="260" stroke="#9f7aea" stroke-width="2" marker-end="url(#arrow-parallel)"/>
+    <line x1="890" y1="230" x2="820" y2="270" stroke="#9f7aea" stroke-width="2" marker-end="url(#arrow-parallel)"/>
+    
+    <!-- Code example -->
+    <rect x="630" y="330" width="340" height="120" rx="8" fill="#1a202c" stroke="#4a5568" stroke-width="1"/>
+    <text x="640" y="350" font-family="monospace" font-size="11" fill="#9f7aea">def start_parallel_processing</text>
+    <text x="650" y="365" font-family="monospace" font-size="11" fill="#9ca3af"># Trigger multiple parallel operations</text>
+    <text x="650" y="380" font-family="monospace" font-size="11" fill="#e0e0e0">InventoryMessage.new(@items).publish('reserve_items')</text>
+    <text x="650" y="395" font-family="monospace" font-size="11" fill="#e0e0e0">PaymentMessage.new(@items).publish('authorize_payment')</text>
+    <text x="650" y="410" font-family="monospace" font-size="11" fill="#e0e0e0">ShippingMessage.new(@items).publish('calculate_shipping')</text>
+    <text x="650" y="425" font-family="monospace" font-size="11" fill="#68d391">success!</text>
+    <text x="640" y="440" font-family="monospace" font-size="11" fill="#9f7aea">end</text>
+  </g>
+  
+  <!-- State Tracking -->
+  <g>
+    <text x="200" y="590" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#e0e0e0">
+      Workflow State Management
+    </text>
+    
+    <rect x="50" y="610" width="300" height="140" rx="8" fill="#2d3748" stroke="#4a5568" stroke-width="2"/>
+    <text x="200" y="635" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#e0e0e0">State Tracking</text>
+    
+    <text x="60" y="655" font-family="monospace" font-size="10" fill="#e0e0e0">@items[:workflow_state] = 'initialized'</text>
+    <text x="60" y="670" font-family="monospace" font-size="10" fill="#e0e0e0">@items[:completed_steps] = []</text>
+    <text x="60" y="685" font-family="monospace" font-size="10" fill="#e0e0e0">@items[:current_step] = 'validate'</text>
+    <text x="60" y="700" font-family="monospace" font-size="10" fill="#e0e0e0">@items[:started_at] = Time.current</text>
+    <text x="60" y="715" font-family="monospace" font-size="10" fill="#e0e0e0">@items[:retry_count] = 0</text>
+    <text x="60" y="730" font-family="monospace" font-size="10" fill="#e0e0e0">@items[:error_history] = []</text>
+    <text x="60" y="745" font-family="monospace" font-size="10" fill="#e0e0e0">@items[:metadata] = {...}</text>
+    
+    <!-- Benefits -->
+    <rect x="370" y="610" width="300" height="140" rx="8" fill="#2d3748" stroke="#68d391" stroke-width="2"/>
+    <text x="520" y="635" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#68d391">Workflow Benefits</text>
+    
+    <text x="380" y="655" font-family="Arial, sans-serif" font-size="11" fill="#e0e0e0">✅ Complex business processes</text>
+    <text x="380" y="670" font-family="Arial, sans-serif" font-size="11" fill="#e0e0e0">✅ Step-by-step execution</text>
+    <text x="380" y="685" font-family="Arial, sans-serif" font-size="11" fill="#e0e0e0">✅ Error recovery at any step</text>
+    <text x="380" y="700" font-family="Arial, sans-serif" font-size="11" fill="#e0e0e0">✅ Parallel processing support</text>
+    <text x="380" y="715" font-family="Arial, sans-serif" font-size="11" fill="#e0e0e0">✅ State persistence</text>
+    <text x="380" y="730" font-family="Arial, sans-serif" font-size="11" fill="#e0e0e0">✅ Audit trail</text>
+    <text x="380" y="745" font-family="Arial, sans-serif" font-size="11" fill="#e0e0e0">✅ Conditional branching</text>
+  </g>
+</svg>

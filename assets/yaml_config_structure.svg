@@ -1,0 +1,72 @@
+<svg width="800" height="600" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="600" fill="transparent"/>
+  
+  <!-- Title -->
+  <text x="400" y="30" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#e0e0e0">
+    YAML Configuration Structure
+  </text>
+  
+  <!-- Configuration File Example -->
+  <g>
+    <text x="400" y="70" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#4299e1">
+      bunny_farm.yml Structure
+    </text>
+    
+    <rect x="50" y="90" width="700" height="320" rx="8" fill="#2d3748" stroke="#4299e1" stroke-width="2"/>
+    <text x="400" y="115" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#4299e1">Complete Configuration Example</text>
+    
+    <!-- RabbitMQ Section -->
+    <text x="70" y="140" font-family="monospace" font-size="11" fill="#68d391"># RabbitMQ Connection Settings</text>
+    <text x="70" y="155" font-family="monospace" font-size="11" fill="#f6e05e">rabbitmq:</text>
+    <text x="90" y="170" font-family="monospace" font-size="11" fill="#e0e0e0">url: "amqp://localhost:5672"</text>
+    <text x="90" y="185" font-family="monospace" font-size="11" fill="#e0e0e0">username: "bunny_user"</text>
+    <text x="90" y="200" font-family="monospace" font-size="11" fill="#e0e0e0">password: "bunny_pass"</text>
+    <text x="90" y="215" font-family="monospace" font-size="11" fill="#e0e0e0">vhost: "/production"</text>
+    
+    <!-- Exchange Section -->
+    <text x="70" y="240" font-family="monospace" font-size="11" fill="#68d391"># Message Routing</text>
+    <text x="70" y="255" font-family="monospace" font-size="11" fill="#f6e05e">exchange:</text>
+    <text x="90" y="270" font-family="monospace" font-size="11" fill="#e0e0e0">name: "bunny_farm_production"</text>
+    <text x="90" y="285" font-family="monospace" font-size="11" fill="#e0e0e0">type: "topic"</text>
+    <text x="90" y="300" font-family="monospace" font-size="11" fill="#e0e0e0">durable: true</text>
+    
+    <!-- Error Handling -->
+    <text x="70" y="325" font-family="monospace" font-size="11" fill="#68d391"># Error Handling</text>
+    <text x="70" y="340" font-family="monospace" font-size="11" fill="#f6e05e">retry:</text>
+    <text x="90" y="355" font-family="monospace" font-size="11" fill="#e0e0e0">max_attempts: 5</text>
+    <text x="90" y="370" font-family="monospace" font-size="11" fill="#e0e0e0">backoff: "exponential"</text>
+    <text x="90" y="385" font-family="monospace" font-size="11" fill="#e0e0e0">initial_delay: 2</text>
+    <text x="70" y="400" font-family="monospace" font-size="11" fill="#f6e05e">dead_letter_queue: "failed_messages"</text>
+  </g>
+  
+  <!-- Environment-Specific Configs -->
+  <g>
+    <text x="400" y="450" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#e0e0e0">
+      Environment-Specific Configuration
+    </text>
+    
+    <!-- Development -->
+    <rect x="50" y="470" width="220" height="100" rx="6" fill="#1a202c" stroke="#68d391" stroke-width="1"/>
+    <text x="160" y="490" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#68d391">development.yml</text>
+    <text x="60" y="510" font-family="monospace" font-size="10" fill="#e0e0e0">rabbitmq:</text>
+    <text x="70" y="525" font-family="monospace" font-size="10" fill="#e0e0e0">url: "amqp://localhost:5672"</text>
+    <text x="60" y="540" font-family="monospace" font-size="10" fill="#e0e0e0">exchange:</text>
+    <text x="70" y="555" font-family="monospace" font-size="10" fill="#e0e0e0">name: "bunny_farm_dev"</text>
+    
+    <!-- Testing -->
+    <rect x="290" y="470" width="220" height="100" rx="6" fill="#1a202c" stroke="#f6e05e" stroke-width="1"/>
+    <text x="400" y="490" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#f6e05e">test.yml</text>
+    <text x="300" y="510" font-family="monospace" font-size="10" fill="#e0e0e0">rabbitmq:</text>
+    <text x="310" y="525" font-family="monospace" font-size="10" fill="#e0e0e0">url: "amqp://test:5672"</text>
+    <text x="300" y="540" font-family="monospace" font-size="10" fill="#e0e0e0">exchange:</text>
+    <text x="310" y="555" font-family="monospace" font-size="10" fill="#e0e0e0">name: "bunny_farm_test"</text>
+    
+    <!-- Production -->
+    <rect x="530" y="470" width="220" height="100" rx="6" fill="#1a202c" stroke="#e53e3e" stroke-width="1"/>
+    <text x="640" y="490" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#e53e3e">production.yml</text>
+    <text x="540" y="510" font-family="monospace" font-size="10" fill="#e0e0e0">rabbitmq:</text>
+    <text x="550" y="525" font-family="monospace" font-size="10" fill="#e0e0e0">url: "amqp://prod:5672"</text>
+    <text x="540" y="540" font-family="monospace" font-size="10" fill="#e0e0e0">exchange:</text>
+    <text x="550" y="555" font-family="monospace" font-size="10" fill="#e0e0e0">name: "bunny_farm_prod"</text>
+  </g>
+</svg>

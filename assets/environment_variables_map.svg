@@ -1,0 +1,78 @@
+<svg width="900" height="500" xmlns="http://www.w3.org/2000/svg">
+  <rect width="900" height="500" fill="transparent"/>
+  
+  <!-- Title -->
+  <text x="450" y="30" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#e0e0e0">
+    Environment Variables Configuration Map
+  </text>
+  
+  <!-- Connection Variables -->
+  <g>
+    <text x="450" y="70" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#4299e1">
+      RabbitMQ Connection Variables
+    </text>
+    
+    <rect x="50" y="90" width="800" height="120" rx="8" fill="#2d3748" stroke="#4299e1" stroke-width="2"/>
+    <text x="450" y="115" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#4299e1">Primary Connection Settings</text>
+    
+    <!-- Connection vars in two columns -->
+    <text x="70" y="140" font-family="monospace" font-size="11" fill="#68d391">RABBITMQ_URL</text>
+    <text x="250" y="140" font-family="Arial, sans-serif" font-size="11" fill="#e0e0e0">= "amqp://user:pass@host:port/vhost"</text>
+    <text x="70" y="155" font-family="monospace" font-size="11" fill="#68d391">RABBITMQ_HOST</text>
+    <text x="250" y="155" font-family="Arial, sans-serif" font-size="11" fill="#e0e0e0">= "rabbitmq.example.com"</text>
+    <text x="70" y="170" font-family="monospace" font-size="11" fill="#68d391">RABBITMQ_PORT</text>
+    <text x="250" y="170" font-family="Arial, sans-serif" font-size="11" fill="#e0e0e0">= "5672"</text>
+    <text x="70" y="185" font-family="monospace" font-size="11" fill="#68d391">RABBITMQ_VHOST</text>
+    <text x="250" y="185" font-family="Arial, sans-serif" font-size="11" fill="#e0e0e0">= "/production"</text>
+    
+    <text x="470" y="140" font-family="monospace" font-size="11" fill="#68d391">RABBITMQ_USERNAME</text>
+    <text x="650" y="140" font-family="Arial, sans-serif" font-size="11" fill="#e0e0e0">= "bunny_user"</text>
+    <text x="470" y="155" font-family="monospace" font-size="11" fill="#68d391">RABBITMQ_PASSWORD</text>
+    <text x="650" y="155" font-family="Arial, sans-serif" font-size="11" fill="#e0e0e0">= "secure_password"</text>
+    <text x="470" y="170" font-family="monospace" font-size="11" fill="#68d391">RABBITMQ_SSL</text>
+    <text x="650" y="170" font-family="Arial, sans-serif" font-size="11" fill="#e0e0e0">= "true"</text>
+    <text x="470" y="185" font-family="monospace" font-size="11" fill="#68d391">RABBITMQ_HEARTBEAT</text>
+    <text x="650" y="185" font-family="Arial, sans-serif" font-size="11" fill="#e0e0e0">= "30"</text>
+  </g>
+  
+  <!-- BunnyFarm Specific Variables -->
+  <g>
+    <text x="450" y="250" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#9f7aea">
+      BunnyFarm Configuration Variables
+    </text>
+    
+    <rect x="50" y="270" width="380" height="140" rx="6" fill="#2d3748" stroke="#9f7aea" stroke-width="1"/>
+    <text x="240" y="295" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="#9f7aea">Exchange &amp; Routing</text>
+    <text x="70" y="315" font-family="monospace" font-size="10" fill="#68d391">BUNNY_FARM_EXCHANGE</text>
+    <text x="70" y="330" font-family="Arial, sans-serif" font-size="10" fill="#e0e0e0">Default exchange name</text>
+    <text x="70" y="350" font-family="monospace" font-size="10" fill="#68d391">BUNNY_FARM_EXCHANGE_TYPE</text>
+    <text x="70" y="365" font-family="Arial, sans-serif" font-size="10" fill="#e0e0e0">Exchange type (topic, direct, fanout)</text>
+    <text x="70" y="385" font-family="monospace" font-size="10" fill="#68d391">BUNNY_FARM_ROUTING_KEY_PREFIX</text>
+    <text x="70" y="400" font-family="Arial, sans-serif" font-size="10" fill="#e0e0e0">Prefix for all routing keys</text>
+    
+    <rect x="450" y="270" width="380" height="140" rx="6" fill="#2d3748" stroke="#f6e05e" stroke-width="1"/>
+    <text x="640" y="295" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="#f6e05e">Error Handling</text>
+    <text x="470" y="315" font-family="monospace" font-size="10" fill="#68d391">BUNNY_FARM_RETRY_ATTEMPTS</text>
+    <text x="470" y="330" font-family="Arial, sans-serif" font-size="10" fill="#e0e0e0">Maximum retry attempts (default: 3)</text>
+    <text x="470" y="350" font-family="monospace" font-size="10" fill="#68d391">BUNNY_FARM_RETRY_DELAY</text>
+    <text x="470" y="365" font-family="Arial, sans-serif" font-size="10" fill="#e0e0e0">Initial retry delay in seconds</text>
+    <text x="470" y="385" font-family="monospace" font-size="10" fill="#68d391">BUNNY_FARM_DEAD_LETTER_QUEUE</text>
+    <text x="470" y="400" font-family="Arial, sans-serif" font-size="10" fill="#e0e0e0">Queue name for failed messages</text>
+  </g>
+  
+  <!-- Usage Examples -->
+  <g>
+    <text x="450" y="450" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#e0e0e0">
+      Common Environment Variable Patterns
+    </text>
+    
+    <rect x="50" y="470" width="260" height="25" rx="4" fill="#1a202c" stroke="#68d391" stroke-width="1"/>
+    <text x="180" y="487" text-anchor="middle" font-family="monospace" font-size="10" fill="#68d391">export RABBITMQ_URL="amqp://localhost:5672"</text>
+    
+    <rect x="330" y="470" width="260" height="25" rx="4" fill="#1a202c" stroke="#4299e1" stroke-width="1"/>
+    <text x="460" y="487" text-anchor="middle" font-family="monospace" font-size="10" fill="#4299e1">export BUNNY_FARM_EXCHANGE="production"</text>
+    
+    <rect x="610" y="470" width="260" height="25" rx="4" fill="#1a202c" stroke="#f6e05e" stroke-width="1"/>
+    <text x="740" y="487" text-anchor="middle" font-family="monospace" font-size="10" fill="#f6e05e">export BUNNY_FARM_RETRY_ATTEMPTS=5</text>
+  </g>
+</svg>

@@ -1,0 +1,165 @@
+<svg width="1000" height="700" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1000" height="700" fill="transparent"/>
+  
+  <!-- Title -->
+  <text x="500" y="30" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#e0e0e0">
+    Debugging and Monitoring BunnyFarm Applications
+  </text>
+  
+  <!-- Logging Layers -->
+  <g>
+    <text x="500" y="70" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#4299e1">
+      Logging and Observability Stack
+    </text>
+    
+    <!-- Application Logs -->
+    <rect x="50" y="100" width="180" height="80" rx="8" fill="#2d3748" stroke="#68d391" stroke-width="2"/>
+    <text x="140" y="125" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#68d391">Application Logs</text>
+    <text x="60" y="145" font-family="Arial, sans-serif" font-size="10" fill="#e0e0e0">• Message processing</text>
+    <text x="60" y="160" font-family="Arial, sans-serif" font-size="10" fill="#e0e0e0">• Business logic events</text>
+    <text x="60" y="175" font-family="Arial, sans-serif" font-size="10" fill="#e0e0e0">• Error details</text>
+    
+    <!-- Message Logs -->
+    <rect x="250" y="100" width="180" height="80" rx="8" fill="#2d3748" stroke="#4299e1" stroke-width="2"/>
+    <text x="340" y="125" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#4299e1">Message Logs</text>
+    <text x="260" y="145" font-family="Arial, sans-serif" font-size="10" fill="#e0e0e0">• Publish/consume events</text>
+    <text x="260" y="160" font-family="Arial, sans-serif" font-size="10" fill="#e0e0e0">• Routing information</text>
+    <text x="260" y="175" font-family="Arial, sans-serif" font-size="10" fill="#e0e0e0">• Message tracing</text>
+    
+    <!-- RabbitMQ Logs -->
+    <rect x="450" y="100" width="180" height="80" rx="8" fill="#2d3748" stroke="#2b6cb0" stroke-width="2"/>
+    <text x="540" y="125" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#2b6cb0">RabbitMQ Logs</text>
+    <text x="460" y="145" font-family="Arial, sans-serif" font-size="10" fill="#e0e0e0">• Connection events</text>
+    <text x="460" y="160" font-family="Arial, sans-serif" font-size="10" fill="#e0e0e0">• Queue operations</text>
+    <text x="460" y="175" font-family="Arial, sans-serif" font-size="10" fill="#e0e0e0">• Performance metrics</text>
+    
+    <!-- Infrastructure Logs -->
+    <rect x="650" y="100" width="180" height="80" rx="8" fill="#2d3748" stroke="#9f7aea" stroke-width="2"/>
+    <text x="740" y="125" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#9f7aea">Infrastructure</text>
+    <text x="660" y="145" font-family="Arial, sans-serif" font-size="10" fill="#e0e0e0">• System resources</text>
+    <text x="660" y="160" font-family="Arial, sans-serif" font-size="10" fill="#e0e0e0">• Container metrics</text>
+    <text x="660" y="175" font-family="Arial, sans-serif" font-size="10" fill="#e0e0e0">• Network performance</text>
+  </g>
+  
+  <!-- Debugging Tools -->
+  <g>
+    <text x="500" y="230" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#e0e0e0">
+      Debugging Tools and Techniques
+    </text>
+    
+    <!-- Message Inspector -->
+    <rect x="50" y="260" width="300" height="120" rx="6" fill="#2d3748" stroke="#68d391" stroke-width="1"/>
+    <text x="200" y="285" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="#68d391">Message Inspector</text>
+    
+    <text x="70" y="305" font-family="monospace" font-size="10" fill="#9ca3af"># Interactive debugging</text>
+    <text x="70" y="320" font-family="monospace" font-size="10" fill="#e0e0e0">BunnyFarm::Inspector.start</text>
+    <text x="70" y="335" font-family="monospace" font-size="10" fill="#e0e0e0">inspector.watch_queue('orders')</text>
+    <text x="70" y="350" font-family="monospace" font-size="10" fill="#e0e0e0">inspector.inspect_message(id)</text>
+    <text x="70" y="365" font-family="monospace" font-size="10" fill="#e0e0e0">inspector.replay_message(id)</text>
+    
+    <!-- Queue Browser -->
+    <rect x="370" y="260" width="300" height="120" rx="6" fill="#2d3748" stroke="#4299e1" stroke-width="1"/>
+    <text x="520" y="285" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="#4299e1">Queue Browser</text>
+    
+    <text x="390" y="305" font-family="monospace" font-size="10" fill="#9ca3af"># Queue inspection</text>
+    <text x="390" y="320" font-family="monospace" font-size="10" fill="#e0e0e0">BunnyFarm::QueueBrowser.new</text>
+    <text x="390" y="335" font-family="monospace" font-size="10" fill="#e0e0e0">browser.peek_messages(10)</text>
+    <text x="390" y="350" font-family="monospace" font-size="10" fill="#e0e0e0">browser.queue_stats</text>
+    <text x="390" y="365" font-family="monospace" font-size="10" fill="#e0e0e0">browser.purge_queue</text>
+    
+    <!-- RabbitMQ Management -->
+    <rect x="690" y="260" width="260" height="120" rx="6" fill="#2d3748" stroke="#2b6cb0" stroke-width="1"/>
+    <text x="820" y="285" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="#2b6cb0">RabbitMQ Management</text>
+    
+    <text x="710" y="305" font-family="Arial, sans-serif" font-size="10" fill="#e0e0e0">• Web UI dashboard</text>
+    <text x="710" y="320" font-family="Arial, sans-serif" font-size="10" fill="#e0e0e0">• Queue depth monitoring</text>
+    <text x="710" y="335" font-family="Arial, sans-serif" font-size="10" fill="#e0e0e0">• Connection tracking</text>
+    <text x="710" y="350" font-family="Arial, sans-serif" font-size="10" fill="#e0e0e0">• Message flow visualization</text>
+    <text x="710" y="365" font-family="Arial, sans-serif" font-size="10" fill="#e0e0e0">• Performance metrics</text>
+  </g>
+  
+  <!-- Monitoring Dashboard -->
+  <g>
+    <text x="500" y="430" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#e0e0e0">
+      Monitoring Dashboard Components
+    </text>
+    
+    <!-- Message Metrics -->
+    <rect x="50" y="450" width="200" height="100" rx="6" fill="#1a202c" stroke="#68d391" stroke-width="1"/>
+    <text x="150" y="475" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#68d391">Message Metrics</text>
+    <text x="60" y="495" font-family="Arial, sans-serif" font-size="10" fill="#e0e0e0">Messages per second</text>
+    <text x="60" y="510" font-family="Arial, sans-serif" font-size="10" fill="#e0e0e0">Processing time</text>
+    <text x="60" y="525" font-family="Arial, sans-serif" font-size="10" fill="#e0e0e0">Success/failure rates</text>
+    <text x="60" y="540" font-family="Arial, sans-serif" font-size="10" fill="#e0e0e0">Retry counts</text>
+    
+    <!-- Queue Health -->
+    <rect x="270" y="450" width="200" height="100" rx="6" fill="#1a202c" stroke="#4299e1" stroke-width="1"/>
+    <text x="370" y="475" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#4299e1">Queue Health</text>
+    <text x="280" y="495" font-family="Arial, sans-serif" font-size="10" fill="#e0e0e0">Queue depth</text>
+    <text x="280" y="510" font-family="Arial, sans-serif" font-size="10" fill="#e0e0e0">Consumer count</text>
+    <text x="280" y="525" font-family="Arial, sans-serif" font-size="10" fill="#e0e0e0">Dead letter queue</text>
+    <text x="280" y="540" font-family="Arial, sans-serif" font-size="10" fill="#e0e0e0">Memory usage</text>
+    
+    <!-- Error Tracking -->
+    <rect x="490" y="450" width="200" height="100" rx="6" fill="#1a202c" stroke="#e53e3e" stroke-width="1"/>
+    <text x="590" y="475" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#e53e3e">Error Tracking</text>
+    <text x="500" y="495" font-family="Arial, sans-serif" font-size="10" fill="#e0e0e0">Error rates by type</text>
+    <text x="500" y="510" font-family="Arial, sans-serif" font-size="10" fill="#e0e0e0">Error details and stack</text>
+    <text x="500" y="525" font-family="Arial, sans-serif" font-size="10" fill="#e0e0e0">Alert notifications</text>
+    <text x="500" y="540" font-family="Arial, sans-serif" font-size="10" fill="#e0e0e0">Error trends</text>
+    
+    <!-- Performance -->
+    <rect x="710" y="450" width="200" height="100" rx="6" fill="#1a202c" stroke="#f6e05e" stroke-width="1"/>
+    <text x="810" y="475" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#f6e05e">Performance</text>
+    <text x="720" y="495" font-family="Arial, sans-serif" font-size="10" fill="#e0e0e0">Throughput graphs</text>
+    <text x="720" y="510" font-family="Arial, sans-serif" font-size="10" fill="#e0e0e0">Latency percentiles</text>
+    <text x="720" y="525" font-family="Arial, sans-serif" font-size="10" fill="#e0e0e0">Memory/CPU usage</text>
+    <text x="720" y="540" font-family="Arial, sans-serif" font-size="10" fill="#e0e0e0">Connection pools</text>
+  </g>
+  
+  <!-- Alerting Strategy -->
+  <g>
+    <text x="500" y="600" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#e0e0e0">
+      Alerting and Incident Response
+    </text>
+    
+    <!-- Critical Alerts -->
+    <rect x="80" y="620" width="160" height="60" rx="6" fill="#1a202c" stroke="#e53e3e" stroke-width="1"/>
+    <text x="160" y="640" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#e53e3e">Critical Alerts</text>
+    <text x="90" y="655" font-family="Arial, sans-serif" font-size="9" fill="#e0e0e0">• Queue depth > threshold</text>
+    <text x="90" y="670" font-family="Arial, sans-serif" font-size="9" fill="#e0e0e0">• Error rate > 5%</text>
+    
+    <!-- Warning Alerts -->
+    <rect x="260" y="620" width="160" height="60" rx="6" fill="#1a202c" stroke="#f6e05e" stroke-width="1"/>
+    <text x="340" y="640" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#f6e05e">Warning Alerts</text>
+    <text x="270" y="655" font-family="Arial, sans-serif" font-size="9" fill="#e0e0e0">• Slow processing times</text>
+    <text x="270" y="670" font-family="Arial, sans-serif" font-size="9" fill="#e0e0e0">• Memory pressure</text>
+    
+    <!-- Info Alerts -->
+    <rect x="440" y="620" width="160" height="60" rx="6" fill="#1a202c" stroke="#4299e1" stroke-width="1"/>
+    <text x="520" y="640" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#4299e1">Info Alerts</text>
+    <text x="450" y="655" font-family="Arial, sans-serif" font-size="9" fill="#e0e0e0">• Deployment events</text>
+    <text x="450" y="670" font-family="Arial, sans-serif" font-size="9" fill="#e0e0e0">• Scaling events</text>
+    
+    <!-- Response Actions -->
+    <rect x="620" y="620" width="260" height="60" rx="6" fill="#1a202c" stroke="#68d391" stroke-width="1"/>
+    <text x="750" y="640" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#68d391">Automated Response</text>
+    <text x="630" y="655" font-family="Arial, sans-serif" font-size="9" fill="#e0e0e0">• Auto-scaling workers</text>
+    <text x="630" y="670" font-family="Arial, sans-serif" font-size="9" fill="#e0e0e0">• Circuit breaker activation</text>
+  </g>
+  
+  <!-- Data Flow Arrows -->
+  <defs>
+    <marker id="arrow-debug" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#ff9800"/>
+    </marker>
+  </defs>
+  
+  <!-- Log flow to monitoring -->
+  <line x1="140" y1="180" x2="140" y2="260" stroke="#ff9800" stroke-width="2" marker-end="url(#arrow-debug)"/>
+  <line x1="340" y1="180" x2="340" y2="260" stroke="#ff9800" stroke-width="2" marker-end="url(#arrow-debug)"/>
+  <line x1="540" y1="180" x2="540" y2="260" stroke="#ff9800" stroke-width="2" marker-end="url(#arrow-debug)"/>
+  
+  <!-- Monitoring to alerts -->
+  <line x1="450" y1="550" x2="450" y2="620" stroke="#ff9800" stroke-width="2" marker-end="url(#arrow-debug)"/>
+</svg>
