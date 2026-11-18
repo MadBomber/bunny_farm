@@ -80,7 +80,7 @@ values above were selected to match the demo code below.
 
 ## Requirements
 
-- Ruby 2.5 or higher
+- Ruby 4.0 or higher
 - RabbitMQ server
 - Bundler
 

@@ -13,6 +13,7 @@ Gem::Specification.new do |spec|
   spec.summary       = %q{ Simple AMQP/JSON background job manager for RabbitMQ }
   spec.description   = %q{ A lightweight Ruby gem for managing background jobs using RabbitMQ. Messages are encapsulated as classes with JSON serialization and routing keys in the format MessageClassName.action for simple, organized job processing. }
   spec.homepage      = "https://github.com/MadBomber/bunny_farm"
+  spec.required_ruby_version = ">= 4.0"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
